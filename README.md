@@ -6,6 +6,6 @@
 2、个人主页
 ![image](https://github.com/ljx1845780976/img/blob/main/%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5.png)
 3、主页
-![image](https://github.com/ljx1845780976/img/blob/main/%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5.png)
+![image](https://github.com/ljx1845780976/img/blob/main/%E4%B8%BB%E9%A1%B5.png)
 4、具体视频播放页
 ![image](https://github.com/ljx1845780976/img/blob/main/%E5%85%B7%E4%BD%93%E6%92%AD%E6%94%BE%E8%A7%86%E9%A2%91%E9%A1%B5.png)
