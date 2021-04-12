@@ -7,19 +7,19 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="videoSite" />
+        <module name="LangV" />
         <module name="ImgServer" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ImgServer" target="11" />
-      <module name="videoSite" target="11" />
+      <module name="LangV" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ImgServer" options="-parameters" />
-      <module name="videoSite" options="-parameters" />
+      <module name="LangV" options="-parameters" />
     </option>
   </component>
 </project>
