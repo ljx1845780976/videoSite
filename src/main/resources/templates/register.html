@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+    <link rel="bookmark" th:href="@{/favicon.ico}"/>
+    <title>Login</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/style-responsive.css}" rel="stylesheet">
+    <link th:href="@{/js/iCheck/skins/flat/green.css}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+
+    <script th:src="@{/js/html5shiv.js}"></script>
+    <script th:src="@{/js/respond.min.js}"></script>
+    <![endif]-->
+</head>
+
+<body class="login-body ">
+
+<div class="container" id="app">
+
+    <form  class="form-signin" th:action="@{/save}" method="post" >
+        <div class="form-signin-heading text-center">
+            <h1 class="sign-title ">REGISTRATION</h1>
+            <img src="images/mylogo.png" style="width: 200px" alt=""/>
+        </div>
+        <div class="login-wrap">
+            <!--接口传来的重复username，如果又输入一样的重复的username，则直接disabled提交按钮-->
+            <input id="repeated_username" hidden="hidden" th:value="${repeated_username}">
+            <input id="repeated_email" hidden="hidden" th:value="${repeated_email}">
+
+            <input type="text" name="username" v-model="vusername" @blur="repeated" @input="usernameLimit" maxlength="19" required class="form-control" placeholder="Username" autofocus>
+            <input type="password" name="password" v-model="vpassword" @blur="check" maxlength="49" required class="form-control" placeholder="Password">
+            <input type="password"  v-model="c_psw" @blur="check" maxlength="49" required  class="form-control" placeholder="Confirm Password">
+            <input type="text" name="email" v-model="v_email" @blur="checkEmail"  required class="form-control" placeholder="Email">
+
+            <div  v-if="msg1" >
+                <label style="color: red" >{{msg1}}</label>
+            </div>
+            <div  v-if="msg2">
+            <label  style="color: red" >{{msg2}}</label>
+            </div>
+            <div  v-if="msg3">
+                        <label  style="color: red" >{{msg3}}</label>
+            </div>
+            <div  v-if="msg4">
+                        <label  style="color: red" >{{msg4}}</label>
+            </div>
+            <button class="btn btn-lg btn-login btn-block"  id="btn"  type="submit">
+                <i class="fa fa-check"></i>
+            </button>
+
+            <div class="registration">
+
+                Have an account?
+                <a class="" href="/login.html">
+                    Login
+                </a>
+            </div>
+            <label class="checkbox">
+                <span class="pull-right">
+                    <a data-toggle="modal" href="#myModal"> Forgot Password?</a>
+
+                </span>
+            </label>
+
+        </div>
+
+        <!-- Modal -->
+        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Forgot Password ?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Enter your e-mail address below to reset your password.</p>
+                        <input type="text" name="email2" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+                        <button class="btn btn-primary" type="button">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal -->
+
+    </form>
+
+</div>
+
+
+
+<!-- Placed js at the end of the document so the pages load faster -->
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<script th:src="@{/js/jquery-1.10.2.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/modernizr.min.js}"></script>
+<script th:src="@{/js/iCheck/jquery.icheck.js}"></script>
+<script th:src="@{/js/icheck-init.js}"></script>
+<script th:src="@{/js/vue.min.js}"></script>
+<script th:src="@{/js/axios.min.js}"></script>
+<script>
+    var repeated_username=document.getElementById("repeated_username").value;
+    var repeated_email=document.getElementById("repeated_email").value;
+   var  V=new Vue({
+       el: "#app",
+        data: {
+                   vusername: '',
+                   vpassword: '',
+                   c_psw: '',
+                   msg1: '',
+                   msg2:'',
+                   msg3:'',
+                   msg4:'',
+                   v_email: ''
+           },
+        created(){
+            if(repeated_username!=""){
+                this.msg1="用户名重复";
+            }else {
+                this.msg1="";
+            }
+            if (repeated_email!=""){
+                this.msg4="邮箱已被注册";
+            }else {
+                this.msg4="";
+            }
+        },
+        methods:{
+           usernameLimit(){
+              this.vusername=this.vusername.replace(/[ `~!@#$%^&*()_\-+=<>?:"{}|,.\/;'\\[\]·~！@#￥%……&*（）——\-+={}|《》？：“”【】、；‘’，。、]/g, '');
+           },
+           check(){
+                 if( (this.vpassword!="" &&this.c_psw!="") && this.vpassword!=this.c_psw){
+                      this.msg2="两次密码输入不一样";
+                         $('#btn').addClass("disabled");
+                 }else {
+                     this.msg2=''
+                 }},
+           repeated(){
+                  if ( this.vusername!="" && this.vusername==repeated_username){
+                      this.msg1="用户名重复";
+                      $('#btn').addClass("disabled");
+                  }else {
+                      this.msg1="";
+                  }
+           },
+            checkEmail(){
+               if (this.v_email){
+                   const regEmail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+                     if (regEmail.test(this.v_email)) {
+                          this.msg3=''
+                               }else{
+                         this.msg3='邮箱输入格式错误';
+                         $('#btn').addClass("disabled");
+                     }
+                     if ( this.v_email!="" && this.v_email==repeated_email){
+                     this.msg4="邮箱已被注册";
+                      $('#btn').addClass("disabled");
+                     }else {
+                      this.msg4="";
+
+                }
+               }
+
+            }
+
+        },
+        watch: {
+            msg1(newValue,oldValue){
+               if (newValue===''){
+                   $('#btn').removeClass("disabled");
+               }
+            },
+            msg2(newValue,oldValue){
+               if (newValue===''){
+                   $('#btn').removeClass("disabled");
+               }
+            },
+            msg3(newValue,oldValue){
+               if (newValue===''){
+                   $('#btn').removeClass("disabled");
+               }
+            },
+            msg4(newValue,oldValue){
+               if (newValue===''){
+                   $('#btn').removeClass("disabled");
+               }
+            },
+            immediate: true
+
+        }
+
+    })
+
+</script>
+</body>
+</html>

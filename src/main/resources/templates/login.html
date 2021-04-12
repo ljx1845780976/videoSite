@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+    <link rel="bookmark" th:href="@{/favicon.ico}"/>
+    <title>Login</title>
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet">
+    <link href="js/iCheck/skins/flat/green.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="login-body">
+
+<div class="container">
+
+    <form class="form-signin" th:action="@{/userLogin}" method="post" >
+        <div class="form-signin-heading text-center">
+            <h1 class="sign-title">Sign In</h1>
+            <img src="images/mylogo.png"  style="width: 200px" alt=""/>
+        </div>
+        <div class="login-wrap">
+            <span  th:if="${newUsername}">
+            <input type="text" name="username" th:value="${newUsername}" required class="form-control" placeholder="username" autofocus>
+            <input type="password" name="password" th:value="${newPassword}" required class="form-control" placeholder="password">
+             </span>
+            <span  th:unless="${newUsername}">
+            <input type="text" name="username"  required class="form-control" placeholder="User ID" autofocus>
+            <input type="password" name="password" required class="form-control" placeholder="Password">
+             </span>
+            <span th:if="${param.error}">
+            <label style="color: red" >用户名或密码错误,请重新输入</label>
+            </span>
+            <div class="col-sm-pull icheck" >
+                <div class="flat-green " style="position: relative;
+                                                top: -0.13cm">
+                    <div class="radio left-side-inner">
+                        <input type="checkbox" name="remember">
+                        <label>Remember Me</label>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-lg btn-login btn-block" type="submit">
+                <i class="fa fa-check"></i>
+            </button>
+
+            <div class="registration">
+
+                Not a member yet?
+                <a class="" href="/register.html">
+                    Signup
+                </a>
+            </div>
+            <label class="checkbox">
+                <span class="pull-right">
+                <a data-toggle="modal" href="#myModal"> Forgot Password?</a>
+
+                </span>
+            </label>
+
+        </div>
+
+        <!-- Modal -->
+        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Forgot Password ?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Enter your e-mail address below to reset your password.</p>
+                        <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+                        <button class="btn btn-primary" type="button">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal -->
+
+    </form>
+
+</div>
+
+
+
+<!-- Placed js at the end of the document so the pages load faster -->
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/iCheck/jquery.icheck.js"></script>
+<script src="js/icheck-init.js"></script>
+</body>
+</html>

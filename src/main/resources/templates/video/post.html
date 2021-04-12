@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+    <link rel="bookmark" th:href="@{/favicon.ico}"/>
+    <title>LangV</title>
+    <link th:href="@{/js/dropzone/css/dropzone.css}" rel="stylesheet"/>
+
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/style-responsive.css}" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script th:src="@{/js/html5shiv.js}"></script>
+    <script th:src="@{/js/respond.min.js}"></script>
+    <![endif]-->
+    <style> /*v-clock 解决闪烁{{后端参数}}的问题，在id=app的div内声明v-clock即可*/
+    [v-clock]{
+        display: none;
+    }
+    </style>
+</head>
+
+<body class="mybody">
+
+<!-- left side start-->
+<!-- left side end-->
+
+<!-- main content start-->
+
+<!-- header section start-->
+<div th:replace="common/header::top"></div>
+<div class="wrapper " >
+    <div class="row ">
+
+        <div id="app" v-clock class="col-sm-10" style="margin-right: 128px;float: right">
+            <section class="panel">
+                <div class="panel-body">
+
+                    <div  class="media-gal2">
+                        <div class="col-md-12">
+                            <section class="panel">
+                                <div class="panel-body">
+                                    <div id="post_show">
+                                    <form  @click="openFile" class="dropzone" >
+                                        <i class="fa fa-upload i" ></i>
+                                        <div class="text">
+                                            点击选择视频文件
+                                        </div>
+                                        <div class="notice">
+                                            (目前仅支持mp4格式的视频文件)
+                                        </div>
+                                        <div class="chose">
+                                        </div>
+                                        <div class="videoName">
+                                        </div>
+                                    </form>
+                                    <form  class="myform" enctype="multipart/form-data"  >
+                                        <input style="display: none" type="file" name="videoFile" id="postVideo"  @change="getFileName($event)"  >
+                                        <div class="form-group myform-group">
+                                            <label class="col-md-2 col-sm-2 control-label mylabel">标题</label>
+                                                <div  class="title form-control">
+                                                    <input  @input="charNumDisplay" v-model="title" maxlength="80" class="hiddenInput"  type="text"  required >
+                                                    <span class="charNum">{{remain1}}/80</span>
+                                                </div>
+                                        </div>
+                                        <div class="form-group myform-group2">
+                                            <label class="col-md-2 col-sm-2 control-label mylabel">视频介绍</label>
+                                            <textarea  @input="charNumDisplay" v-model="introduction" maxlength="250" type="text" class="form-control mytextarea" rows="8" placeholder="完善视频的相关信息,让更多人能找到你的视频!"></textarea>
+                                                    <span class="charNum">{{remain2}}/250</span>
+                                        </div>
+                                        <div class="mysubmit">
+                                            <a  @click="post"  class="btn btn-info">确认上传</a>
+                                            <a  href="javascript:window.history.back();" class="btn btn-default back">返回上页</a>
+                                            <a hidden id="errorNotice" href="#myModal2" data-toggle="modal"></a>
+                                        </div>
+                                    </form>
+                                    </div>
+                                    <div id="succ_show" style="display: none">
+                                        <div class="post_succ">
+                                        <img class="loading" style="height: 200px" th:src="@{/images/loading.gif}">
+                                        <img class="succ" style="height: 200px" th:src="@{/images/post_succ.png}">
+                                         <div class="text"> 上传中</div>
+                                          <div class="btn">
+                                              <a href="/post.html" class="btn btn-info">继续上传</a>
+                                              &nbsp&nbsp&nbsp&nbsp&nbsp
+                                              <a href="/" class="btn btn-default">返回主页</a>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal2" class="modal fade">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <a aria-hidden="true" data-dismiss="modal" class="close" >×</a>
+                                                    <h4 class="modal-title">提示</h4>
+                                                </div>
+                                                <div  class="media-gal4 modal-body">
+                                                    <div id="errorMsg"></div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a type="button" class="btn btn-default" data-dismiss="modal">确定</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="col-md-10 text-right clearfix">
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </section>
+        </div>
+
+    </div>
+</div>
+<!--body wrapper end-->
+<!--footer section start-->
+<div th:replace="common/header::footer"></div>
+<!--footer section end-->
+
+
+<!-- main content end-->
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<script th:src="@{/js/jquery-1.10.2.min.js}"></script>
+<script th:src="@{/js/jquery-ui-1.9.2.custom.min.js}"></script>
+<script th:src="@{/js/jquery-migrate-1.2.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/modernizr.min.js}"></script>
+<!--右边滑条样式-->
+<!--<script src="js/jquery.nicescroll.js"></script>-->
+<script th:src="@{/js/jquery.isotope.js}"></script>
+
+<!--common scripts for all pages-->
+<script src="../../js/scripts.js"></script>
+<script th:src="@{/js/vue.min.js}"></script>
+<script th:src="@{/js/axios.min.js}"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            videoFile: '',
+            title: '',
+            introduction: '',
+            remain1: 0,
+            remain2: 0,
+        },
+        created(){
+        },
+        mounted(){
+        },
+        methods:{
+            openFile(){
+                $('#postVideo').click();
+            },
+            getFileName(event){
+                var videoFile = event.currentTarget.files[0];
+                $('.videoName').text(videoFile.name)
+                $('.chose').text('已选择:')
+                this.title=videoFile.name;
+                this.videoFile=videoFile;
+            },
+            charNumDisplay(){
+                this.remain2=this.introduction.length;
+                this.remain1=this.title.length;
+            },
+            post() {
+                // 进行验证 验证通过就返回 true ,否则阻止提交
+                if(this.videoFile!==''){
+                    if (this.title===''){
+                        $("#errorMsg").text("请输入标题")
+                        $("#errorNotice").click();
+                    }else {
+                    let type=this.videoFile.type.split("\/");
+                    let fileType =type[0]
+                    let videoType =type[1]
+                    if (fileType==='video'){
+                       if (videoType==='mp4'){
+                           let params = new FormData()
+                           params.append('title', this.title)
+                           params.append('username', currentUsername)
+                           params.append('videoFile', this.videoFile)
+                           params.append('introduction', this.introduction)
+                           axios.post('/video/addVideo' ,params,
+                           {
+                              headers:{
+                                 'Content-Type' : 'multipart/form-data'
+                              }
+                           }).then(res=>{
+                               $(".loading").css("display",'none')
+                               $(".succ").css("display",'inline')
+                               $(".text").text("上传完成")
+                           })
+                           // 以下清除已填的标签内容和已选的文件
+                           this.title=''
+                           this.videoFile=''
+                           this.introduction=''
+                           $('.videoName').text('')
+                           $('.chose').text('')
+                           var obj = document.getElementById('postVideo') ;
+                           console.log(obj)
+                           obj.outerHTML=obj.outerHTML;
+                           //展示上传成功页面
+                           $("#post_show").css('display', 'none')
+                           $("#succ_show").css('display', 'inline')
+
+
+                       }else {
+                           $("#errorMsg").text("很抱歉，目前仅支持mp4格式的视频文件")
+                           $("#errorNotice").click();
+                       }
+                    }else {
+                        $("#errorMsg").text("请上传视频文件")
+                        $("#errorNotice").click();
+                    }
+                    }
+                    }else {
+                    $("#errorMsg").text("请先选择上传的视频")
+                    $("#errorNotice").click();
+                    }
+            },
+
+        }
+    })
+
+</script>
+
+</body>
+</html>

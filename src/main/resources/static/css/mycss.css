@@ -1,0 +1,45 @@
+.play_name {
+    background-image: url(mylogo3.png);
+    width: 220px;
+    height: 124px;
+    cursor:pointer;
+    border:1px solid #fff;
+}
+.play_name:hover {
+    border:1px solid #cf9;
+}
+
+.play_name:hover .ico_play{
+    background-image: url("/images/logo.png") ;
+    background-repeat: no-repeat;
+}
+
+.title1 {
+
+    display: block;
+    padding-top: 80px;
+    padding-left: 4px;
+    font: 12px/1.5 Tahoma, "微软雅黑";
+    color: #242222;
+    font-weight:bold;
+}
+/*.cname1:hover .ico_play{*/
+/*    background-image: url("/images/logo.png");*/
+
+/*}*/
+.cname1 {
+    display: block;
+    padding-left: 4px;
+    font: 33px/1.5 Tahoma, "微软雅黑";
+    color: #cf9;
+    color: black;
+    font-weight:bold;
+    cursor:pointer;
+}
+.ico_play {
+    position: absolute;
+    top: 48px;
+    left: 90px;
+    width: 60px;
+    height: 60px;
+}

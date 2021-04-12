@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+    <link rel="bookmark" th:href="@{/favicon.ico}"/>
+    <title>LangV</title>
+
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/style-responsive.css}" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script th:src="@{/js/html5shiv.js}"></script>
+    <script th:src="@{/js/respond.min.js}"></script>
+    <![endif]-->
+    <style> /*v-clock 解决闪烁{{后端参数}}的问题，在id=app的div内声明v-clock即可*/
+    [v-clock]{
+        display: none;
+    }
+    </style>
+</head>
+
+<body class="mybody">
+
+<!-- left side start-->
+<!-- left side end-->
+
+<!-- main content start-->
+
+<!-- header section start-->
+<div th:replace="common/header::top"></div>
+<!-- header section end-->
+
+<!-- page heading start-->
+<!-- page heading end-->
+
+<!--body wrapper start-->
+<div class="wrapper " >
+    <div class="row ">
+        <div th:replace="common/header::#user_header(activeUrl='home.html')"></div>
+
+        <div id="app" v-clock class="col-sm-10" style="margin-right: 128px;float: right">
+            <section class="panel">
+                <div class="panel-body">
+
+                    <div  class="media-gal2">
+                        <div class="col-md-12">
+                            <section class="panel">
+                                <div class="panel-body">
+                                    <div v-if="top_videoInfo===''&& username===currentUsername"  class="i-pin-empty-set list-create">
+                                            <a  style="text-decoration: none" href="#myModal" @click="chooseVideo" data-toggle="modal" >
+                                            <br>
+                                            <br>
+                                            <div class="icon"><i style="font-size: 50px" class="fa fa-plus"></i></div>
+                                            <div class="text">设置置顶视频</div>
+                                            </a>
+                                        </div>
+                                    <div v-if="top_videoInfo!==''" class="top_video">
+                                        <div  class="images item ">
+                                            <!--注意此处Vue传入参数的方式-->
+                                            <a  :href="'/video/toVideo/'+(top_videoInfo.id)"  data-toggle="modal" >
+                                                <img class="vimg" :src="'/video/getImg/'+(top_videoInfo.id)" alt="" />
+                                            </a>
+                                            <a :href="'/video/toVideo/'+(top_videoInfo.id)" class="aitem">{{top_videoInfo.title}}</a>
+                                            <div class="p2">
+                                                <i style="font-size: 14px;" class="fa fa-youtube-play"></i>&nbsp212万次 &nbsp&nbsp&nbsp&nbsp
+                                                <i style="font-size: 14px;" class="fa fa-comments-o"></i>&nbsp2213  &nbsp&nbsp&nbsp&nbsp
+                                                <i style="font-size: 14px;" class="fa fa-clock-o"></i>&nbsp {{top_videoInfo.postTime}}
+                                            </div>
+                                            <div class="p3">{{top_videoInfo.introduction}}</div>
+                                            <div v-if="currentUsername===username" class="set" >
+                                                <a @click="chooseVideo" href="#myModal"  data-toggle="modal" style="color:white;" class="btn btn-info">编辑置顶</a>
+                                                <a href="#myModal2"  data-toggle="modal" class="btn btn-default">取消置顶</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal -->
+                                    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <a @click="reChoose" aria-hidden="true" data-dismiss="modal" class="close" >×</a>
+                                                    <h4 class="modal-title">请选择置顶视频</h4>
+                                                </div>
+                                                <div  class="media-gal3 modal-body">
+                                                    <a id="a_choose" href="#"  data-toggle="modal" >
+                                                        <div @click="chosen($event,video.id)" v-for="(video,index) in videos" class="images item ">
+                                                            <!--注意此处Vue传入参数的方式-->
+                                                            <img class="vimg" :src="'/video/getImg/'+(video.id)" alt="" />
+                                                            <span class="p1">{{video.title}}
+                                                        </span>
+                                                            <span class="p2"> <i style="font-size: 14px;" class="fa fa-youtube-play"></i>&nbsp212万次 &nbsp&nbsp&nbsp&nbsp
+                                                            <i style="font-size: 14px;" class="fa fa-clock-o"></i>&nbsp {{video.postTime}}
+                                                        </span>
+                                                        </div>
+                                                    </a>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <ul class="pagination">
+                                                        <li ><a href="javascript:void(0);" @click="lastPage($event)">«</a></li>
+                                                        <li><a href="javascript:void(0);"  @click="nextPage($event)">»</a></li>
+                                                    </ul>
+                                                    <span >{{currentPage}}/{{totalPage}}</span>
+                                                    <div>
+                                                    <a type="button" id="chosen"  @click="submit" class="btn btn-success" data-dismiss="modal">确定</a>
+                                                    &nbsp&nbsp&nbsp
+                                                    <a @click="reChoose" type="button" class="btn btn-default" data-dismiss="modal">取消</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal2" class="modal fade">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <a aria-hidden="true" data-dismiss="modal" class="close" >×</a>
+                                                    <h4 class="modal-title">确认提示</h4>
+                                                </div>
+                                                <div  class="media-gal4 modal-body">
+                                                    <div>确定要取消置顶视频吗？</div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a type="button" @click="cancel" class="btn btn-success" data-dismiss="modal">确定</a>
+                                                    <a type="button" class="btn btn-default" data-dismiss="modal">取消</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="col-md-10 text-right clearfix">
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </section>
+        </div>
+
+    </div>
+</div>
+<!--body wrapper end-->
+<!--footer section start-->
+<!--footer section end-->
+<div th:replace="common/header::footer"></div>
+
+
+<!-- m  ain content end-->
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<script th:src="@{/js/jquery-1.10.2.min.js}"></script>
+<script th:src="@{/js/jquery-ui-1.9.2.custom.min.js}"></script>
+<script th:src="@{/js/jquery-migrate-1.2.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/modernizr.min.js}"></script>
+<!--右边滑条样式-->
+<!--<script src="js/jquery.nicescroll.js"></script>-->
+
+<script th:src="@{/js/jquery.isotope.js}"></script>
+
+<!--common scripts for all pages-->
+<script src="../../js/scripts.js"></script>
+<script th:src="@{/js/vue.min.js}"></script>
+<script th:src="@{/js/axios.min.js}"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            videos: [],
+            times: [],
+            top_video_id: '',
+            top_videoInfo: '',
+            flag: '',
+            currentPage: 1,
+            totalPage: "",
+        },
+        created(){
+            moment.locale('zh-cn')
+            axios.get('/video/getTopVideoInfoByUsernameAndStatus/'+username).then(res=>{
+                if (res.data!==null){
+                this.top_videoInfo=res.data;
+                }
+            })
+        },
+        mounted(){
+        },
+        methods:{
+            getVideo(pageNum){
+                this.videos=[]
+                axios.get('/video/get7VideosInfoPerPageByUsername/'+pageNum+"/" + username).then(res => {
+                    this.totalPage=res.data.pages===0?1:res.data.pages;
+                    res.data.records.forEach((video) => {
+                        let timeDif = moment(video.postTime).startOf('minute').fromNow()
+                        if (timeDif.indexOf("天") !== -1 || timeDif.indexOf("月") !== -1 || timeDif.indexOf("年") !== -1) {
+                            video.postTime=(moment(video.postTime).format("YYYY-MM-DD"))
+                        } else {
+                            video.postTime=(moment(video.postTime).startOf('minute').fromNow())
+                        }
+                        this.videos.push(video)
+                    })
+
+                })
+
+            },
+            chooseVideo(){
+                //每次打开会disable确认按钮，只有选择后才解开
+                $("#chosen").attr('disabled','disabled')
+                this.getVideo(1)
+            },
+            chosen(event,videoId){
+                //激活当前点击的对象的背景加深css样式，并使当前对象禁用hover、focus这些伪类；
+                $(event.currentTarget).addClass("item_active").css("pointer-events","none")
+                //同时使其他的姊妹对象的背景加深css样式去除，并恢复这些姊妹对象的hover、focus伪类
+                $(event.currentTarget).siblings().removeClass("item_active").css("pointer-events","all")
+                this.top_video_id=videoId;
+                $("#chosen").removeAttr('disabled')
+            },
+            reChoose(){
+                //取消按钮，取消之前已选中的对象使其去除加深样式和恢复伪类。
+                $("#a_choose").children().removeClass("item_active").css("pointer-events","all") ;
+                this.top_video_id='';
+                this.videos=[];
+                this.currentPage=1;
+            },
+            submit(){
+                //首先判断当前置顶视频和选择的视频是否一样，一样则不存入数据库
+                if (this.top_video_id!==this.top_videoInfo.id){
+                    //判断当前置顶视频是否存在，存在才将其在数据库的置顶状态取消
+                    if (this.top_videoInfo!==''){
+                        axios.get('/video/cancelTopVideoStatus/'+this.top_videoInfo.id);
+                    }
+                    //之后从数据库获取当前选择的视频
+                    axios.get('/video/getVideoInfoById/'+this.top_video_id).then(res=>{
+                       this.top_videoInfo=res.data;
+                    })
+                    //然后设置该视频status为3，即存入数据库
+                    axios.get('/video/setTopVideoStatus/'+this.top_video_id);
+                this.reChoose();
+
+                }else {
+                this.reChoose();
+                }
+            },
+            cancel(){
+                axios.get('/video/cancelTopVideoStatus/'+this.top_videoInfo.id);
+                this.top_videoInfo='';
+            },
+            nextPage(event){
+                $("#chosen").attr('disabled','disabled')
+                if (this.currentPage<this.totalPage) {
+                    this.currentPage = this.currentPage + 1
+                    this.getVideo(this.currentPage)
+                }
+            },
+            lastPage(event){
+                $("#chosen").attr('disabled','disabled')
+                if(this.currentPage>1){
+                    this.currentPage = this.currentPage -1
+                    this.getVideo(this.currentPage)
+                }
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+
+spring:
+  mvc:
+    favicon:
+      enabled=false
+  thymeleaf:
+    cache: false
+  datasource:
+  #中国Timezone要设置为CTT ，CTT为东八区
+    url: jdbc:mysql://localhost:3306/movie?serverTimezone=CTT
+    username: root
+    password: qq123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  #设置允许上传的最大大小
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+  configuration:
+    #关闭驼峰命名，但是mybatis-plus无效 还是要改字段或属性名
+    map-underscore-to-camel-case: false
+shiro-redis:
+  enabled: true
+  redis-manager:
+    host: 127.0.0.1:6379
+#自定义用户上传视频的存储路径
+my-video-path:
+  MYPATH: "D:\\videoSite\\"
+server:
+  port: 8080
