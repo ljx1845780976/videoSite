@@ -9,6 +9,7 @@
     <link rel="bookmark" th:href="@{/favicon.ico}"/>
     <title>LangV</title>
     <link th:href="@{/js/dropzone/css/dropzone.css}" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/js/ios-switch/switchery.css}" />
 
     <link th:href="@{/css/style.css}" rel="stylesheet">
     <link th:href="@{/css/style-responsive.css}" rel="stylesheet">
@@ -35,15 +36,18 @@
 <div th:replace="common/header::top"></div>
 <div class="wrapper " >
     <div class="row ">
+        <div  class="col-sm-10" style="margin-right: 128px;float: right">
 
-        <div id="app" v-clock class="col-sm-10" style="margin-right: 128px;float: right">
             <section class="panel">
-                <div class="panel-body">
-
+                <div  class="panel-body">
                     <div  class="media-gal2">
                         <div class="col-md-12">
                             <section class="panel">
-                                <div class="panel-body">
+                                <span class="js-switch">
+                                    <input onchange="changeVideoStatus()" type="checkbox" id="videoStatus" class="js-switch-blue" checked/>
+                                    <span id="public">公开</span>
+                                </span>
+                                <div id="app" v-clock class="panel-body">
                                     <div id="post_show">
                                     <form  @click="openFile" class="dropzone" >
                                         <i class="fa fa-upload i" ></i>
@@ -51,7 +55,7 @@
                                             点击选择视频文件
                                         </div>
                                         <div class="notice">
-                                            (目前仅支持mp4格式的视频文件)
+                                            (目前仅支持mp4格式的大小为50MB以下的视频文件)
                                         </div>
                                         <div class="chose">
                                         </div>
@@ -78,6 +82,9 @@
                                             <a hidden id="errorNotice" href="#myModal2" data-toggle="modal"></a>
                                         </div>
                                     </form>
+
+
+
                                     </div>
                                     <div id="succ_show" style="display: none">
                                         <div class="post_succ">
@@ -110,7 +117,6 @@
                                 </div>
                             </section>
                         </div>
-
                         <div class="col-md-10 text-right clearfix">
                         </div>
                     </div>
@@ -140,11 +146,26 @@
 <!--右边滑条样式-->
 <!--<script src="js/jquery.nicescroll.js"></script>-->
 <script th:src="@{/js/jquery.isotope.js}"></script>
-
+<script th:src="@{/js/ios-switch/switchery.js}" ></script>
+<script th:src="@{/js/ios-switch/ios-init.js}" ></script>
 <!--common scripts for all pages-->
 <script src="../../js/scripts.js"></script>
 <script th:src="@{/js/vue.min.js}"></script>
 <script th:src="@{/js/axios.min.js}"></script>
+<script>
+    var video_status=0;
+    function changeVideoStatus() {
+        var videoStatus=$('#videoStatus').prop('checked')
+         if (videoStatus){
+             video_status=0;
+             $("#public").text('公开')
+         }else {
+             video_status=2;
+             $("#public").text('私密')
+
+         }
+    }
+</script>
 <script>
     new Vue({
         el: '#app',
@@ -176,6 +197,7 @@
             },
             post() {
                 // 进行验证 验证通过就返回 true ,否则阻止提交
+                console.log(video_status)
                 if(this.videoFile!==''){
                     if (this.title===''){
                         $("#errorMsg").text("请输入标题")
@@ -186,10 +208,12 @@
                     let videoType =type[1]
                     if (fileType==='video'){
                        if (videoType==='mp4'){
+                           $(".js-switch").attr("hidden","hidden")
                            let params = new FormData()
                            params.append('title', this.title)
                            params.append('username', currentUsername)
                            params.append('videoFile', this.videoFile)
+                           params.append('status',video_status)
                            params.append('introduction', this.introduction)
                            axios.post('/video/addVideo' ,params,
                            {
@@ -208,7 +232,6 @@
                            $('.videoName').text('')
                            $('.chose').text('')
                            var obj = document.getElementById('postVideo') ;
-                           console.log(obj)
                            obj.outerHTML=obj.outerHTML;
                            //展示上传成功页面
                            $("#post_show").css('display', 'none')

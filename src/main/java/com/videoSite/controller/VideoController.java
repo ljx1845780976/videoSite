@@ -45,7 +45,7 @@ public class VideoController {
     @ResponseBody
     public IPage<Video> getAllVideo(@PathVariable(value = "pageNum",required = false) Integer pageNum){
         Page<Video> videoPage=new Page<>(pageNum,8);
-        IPage<Video> page = videoService.page(videoPage, new QueryWrapper<Video>().orderByDesc("id"));
+        IPage<Video> page = videoService.page(videoPage, new QueryWrapper<Video>().ne("status",2).orderByDesc("id"));
         return page;
     }
     @GetMapping("/toVideo/{videoId}")
@@ -173,6 +173,7 @@ public class VideoController {
                     video.setUrl(videoUrl);
                     video.setImg(imgUrl);
                     video.setTime(videoTime);
+                    video.setStatus(videoDto.getStatus());
                     video.setPostTime(new Date());
                     videoService.save(video);
      //大功告成，返回页面

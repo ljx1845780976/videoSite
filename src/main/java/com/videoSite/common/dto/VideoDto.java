@@ -16,5 +16,7 @@ public class VideoDto {
     private String username;
     private MultipartFile videoFile;
     private String introduction;
+    private int status;
     private MultipartFile img;
+
 }
