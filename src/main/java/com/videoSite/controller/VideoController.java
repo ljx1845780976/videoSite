@@ -57,7 +57,7 @@ public class VideoController {
     @GetMapping("/getVideo/{videoId}")
     @ResponseBody
     public void getVideo(@PathVariable("videoId")Integer videoId,
-                         HttpServletResponse response) throws FileNotFoundException {
+                         HttpServletResponse response)  {
 
             Video video = videoService.getById(videoId);
             String file = video.getUrl();
@@ -197,6 +197,13 @@ public class VideoController {
     @GetMapping("/get8VideosInfoPerPageByUsername/{pageNum}/{username}")
     @ResponseBody
     public  IPage<Video> get8VideosInfoPerPageByUsername(@PathVariable(value = "pageNum",required = false) Integer pageNum,@PathVariable("username") String username){
+        Page<Video> videoPage=new Page<>(pageNum,8);
+        IPage<Video> page = videoService.page(videoPage, new QueryWrapper<Video>().eq("username", username).ne("status",2).orderByDesc("id"));
+        return page;
+    }
+    @GetMapping("/getOwn8VideosInfoPerPageByUsername/{pageNum}/{username}")
+    @ResponseBody
+    public  IPage<Video> getOwn8VideosInfoPerPageByUsername(@PathVariable(value = "pageNum",required = false) Integer pageNum,@PathVariable("username") String username){
         Page<Video> videoPage=new Page<>(pageNum,8);
         IPage<Video> page = videoService.page(videoPage, new QueryWrapper<Video>().eq("username", username).orderByDesc("id"));
         return page;

@@ -115,20 +115,37 @@
         methods:{
             getVideo(pageNum){
                 moment.locale('zh-cn')
-                axios.get('/video/get8VideosInfoPerPageByUsername/'+pageNum+"/"+username).then(res=>{
-                    console.log(res.data.pages)
-                    this.totalPages=res.data.pages===0 ?1:res.data.pages;
-                    for (let i = 0; i <res.data.records.length ; i++) {
-                        let post_time = res.data.records[i].postTime
-                        let timeDif = moment(post_time).startOf('minute').fromNow()
-                        if (timeDif.indexOf("天") !== -1 || timeDif.indexOf("月") !== -1 || timeDif.indexOf("年") !== -1) {
-                            res.data.records[i].postTime=(moment(post_time).format("YYYY-MM-DD"))
-                        } else {
-                            res.data.records[i].postTime=(moment(post_time).startOf('minute').fromNow())
+                if (currentUsername===username) {
+                    axios.get('/video/getOwn8VideosInfoPerPageByUsername/' + pageNum + "/" + username).then(res => {
+                        console.log(res.data.pages)
+                        this.totalPages = res.data.pages === 0 ? 1 : res.data.pages;
+                        for (let i = 0; i < res.data.records.length; i++) {
+                            let post_time = res.data.records[i].postTime
+                            let timeDif = moment(post_time).startOf('minute').fromNow()
+                            if (timeDif.indexOf("天") !== -1 || timeDif.indexOf("月") !== -1 || timeDif.indexOf("年") !== -1) {
+                                res.data.records[i].postTime = (moment(post_time).format("YYYY-MM-DD"))
+                            } else {
+                                res.data.records[i].postTime = (moment(post_time).startOf('minute').fromNow())
+                            }
                         }
-                    }
-                    this.videos=res.data.records;
-                })
+                        this.videos = res.data.records;
+                    })
+                }else {
+                    axios.get('/video/get8VideosInfoPerPageByUsername/' + pageNum + "/" + username).then(res => {
+                        console.log(res.data.pages)
+                        this.totalPages = res.data.pages === 0 ? 1 : res.data.pages;
+                        for (let i = 0; i < res.data.records.length; i++) {
+                            let post_time = res.data.records[i].postTime
+                            let timeDif = moment(post_time).startOf('minute').fromNow()
+                            if (timeDif.indexOf("天") !== -1 || timeDif.indexOf("月") !== -1 || timeDif.indexOf("年") !== -1) {
+                                res.data.records[i].postTime = (moment(post_time).format("YYYY-MM-DD"))
+                            } else {
+                                res.data.records[i].postTime = (moment(post_time).startOf('minute').fromNow())
+                            }
+                        }
+                        this.videos = res.data.records;
+                    })
+                }
             },
             nextPage(){
                 if (this.currentPage<this.totalPages){
