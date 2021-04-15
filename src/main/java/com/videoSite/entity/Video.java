@@ -44,7 +44,7 @@ public class Video implements Serializable {
 
     private String introduction;
 
-    @JsonFormat(pattern = "yyyy-MM-dd    HH:mm:ss ",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd  HH:mm:ss ",timezone = "GMT+8")
     private Date postTime;
 
     //默认为0对所有人可见，1仅粉丝可见，2仅自己可见，3置顶

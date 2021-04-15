@@ -80,11 +80,12 @@ public class SubscribeController {
     /*
     *  查询当前订阅状态
     * */
-    @GetMapping("/status/{youtuber}")
-    public Integer status(@PathVariable("youtuber" ) String youtuber){
+    @GetMapping("/status/{youtuber}/{subscriber}")
+    public Integer status(@PathVariable("youtuber" ) String youtuber,
+                          @PathVariable("subscriber")String subscriber ){
         Map<String,Object> map=new HashMap<>();
         map.put("youtuber",youtuber);
-        map.put("subscriber",GetCurrentUserUtil.getCurrentUserName());
+        map.put("subscriber",subscriber);
         Subscribe one = subscribeService.getOne(new QueryWrapper<Subscribe>().allEq(map));
         if (one!=null){
             return 0;

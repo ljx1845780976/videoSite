@@ -67,7 +67,7 @@
                         <br>
                         <div class="myjudge">
                             <span class="video-view">21,321,321次观看</span>&nbsp&nbsp
-                            <span class="video-view">{{post_time}}</span>
+                            <span class="video-view">{{video.postTime}}</span>
                             <span   class="video-judge">
                             <a  href="#" class="fa fa-thumbs-up" >12.3万</a>
                             <a  href="#" class="fa fa-thumbs-down" >2122</a>
@@ -79,10 +79,10 @@
                         </div>
                         <hr>
                         <div class="video-usr">
-                            <a :href="'/user/toHome/'+video_username" class="" >
+                            <a :href="'/user/toHome/'+(video.username)" class="" >
                                 <img  th:src="@{/images/photos/user.png}" alt="" />
                                 <!--获取当前用户名-->
-                                <span class="usrname" >{{video_username}}</span>
+                                <span class="usrname" >{{video.username}}</span>
                             </a>
                             <a @click="subscribe"    class="btn btn-danger subscribe_btn"  >订阅2.5万</a>
                             <a @click="un_subscribe" class="btn btn-danger subscribe_unbtn" >已订阅 2.5万</a>
@@ -313,10 +313,9 @@
         data: {
             videos: [],
             video: '',
-            video_username: '',
-            post_time: '',
             comment_information: '',
             currentPage: 1,
+            video_username: "",
             totalPages :"",
             upLoading: true,
             commentList: [],
@@ -337,18 +336,23 @@
             window.addEventListener('scroll', this.handleScroll, true);  // 监听（绑定）滚轮滚动事件
             axios.get('/video/getVideoInfo/'+videoId).then(res=>{
                 this.video=res.data;
-                this.video_username=this.video.username;
-                this.post_time=this.video.postTime
+                this.video_username=res.data.username
                 const _this=this;
-             axios.get('/subscription/status/'+_this.video.username).then(res=> {
+             axios.get('/subscription/status/'+_this.video_username+"/"+currentUsername).then(res=> {
+                 if (currentUsername===''){
+                     //未订阅
+                     $('.subscribe_unbtn').attr('style', 'display: none;') ;
+                 }else
+                 {
                   var original_status=res.data
-                  if(original_status>0){
+                 if(original_status>0){
                       //未订阅
                       $('.subscribe_unbtn').attr('style', 'display: none;') ;
                   }else {
                       //已订阅
                       $('.subscribe_btn').attr('style', 'display: none;') ;
                   }
+                 }
              })
             });
         },
