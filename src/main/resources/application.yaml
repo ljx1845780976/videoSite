@@ -21,10 +21,6 @@ mybatis:
   configuration:
     #关闭驼峰命名，但是mybatis-plus无效 还是要改字段或属性名
     map-underscore-to-camel-case: false
-#shiro-redis:
-#  enabled: true
-#  redis-manager:
-#    host: 127.0.0.1:6379
 #自定义用户上传视频的存储路径
 my-video-path:
   MYPATH: "D:\\videoSite\\"

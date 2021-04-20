@@ -263,6 +263,7 @@
                 },
                 subscribe(event) {
                     if (currentUsername!=="") {
+                        //通过传入参数名字获取特定标签
                         $("[name='" + event.target.name + "']").css('display', 'none');
                         $("[name='" + "un_" + event.target.name + "']").css('display', 'inline');
                         //切割subxxx为成为xxx然后传入订阅接口
