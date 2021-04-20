@@ -1971,6 +1971,8 @@ ul.user-states span{
 .mybody{
     background-color: #ececec;
     height: auto;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 .mybackground{
     background-repeat:no-repeat ;
