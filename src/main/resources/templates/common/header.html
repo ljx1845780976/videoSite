@@ -240,8 +240,7 @@
                 this.username=$("#username").val();
                 axios.get('/user/getUsersInfo/'+this.username).then(res=>{
                     if (res.data.signature)
-                    this.signature=res.data.signature;
-                    console.log(currentUsername)
+                    {this.signature=res.data.signature;}
                     if (currentUsername===''){
                         $(".subscribe_btn").css('display', 'inline');
                         $(".subscribe_unbtn").css('display', 'none');
