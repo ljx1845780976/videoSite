@@ -241,7 +241,7 @@
                 axios.get('/user/getUsersInfo/'+this.username).then(res=>{
                     if (res.data.signature)
                     this.signature=res.data.signature;
-                    axios.get('/subscription/status/'+this.username).then(res=> {
+                    axios.get('/subscription/status/'+this.username+"/"+currentUsername).then(res=> {
                         var original_status=res.data
                         if(original_status>0){
                             //未订阅
