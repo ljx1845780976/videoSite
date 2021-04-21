@@ -241,6 +241,11 @@
                 axios.get('/user/getUsersInfo/'+this.username).then(res=>{
                     if (res.data.signature)
                     this.signature=res.data.signature;
+                    console.log(currentUsername)
+                    if (currentUsername===''){
+                        $(".subscribe_btn").css('display', 'inline');
+                        $(".subscribe_unbtn").css('display', 'none');
+                    }else{
                     axios.get('/subscription/status/'+this.username+"/"+currentUsername).then(res=> {
                         var original_status=res.data
                         if(original_status>0){
@@ -253,7 +258,7 @@
                             $(".subscribe_unbtn").css('display', 'inline');
                         }
                     })
-
+                    }
                 });
 
             },
