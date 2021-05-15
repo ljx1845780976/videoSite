@@ -26,10 +26,26 @@
 <body class="mybody">
 
         <div th:replace="common/header::top"></div>
+        <div class="left-side sticky-left-side" tabindex="5000" style="overflow: hidden;">
+
+            <div class="left-side-inner">
+                <ul class="nav nav-pills  custom-nav">
+                    <li ><a href=""><i class="fa fa-home"></i> <span>Layouts</span></a>
+                    </li>
+                    <li ><a href=""><i class="fa fa-laptop"></i> <span>Layouts</span></a>
+                    </li>
+                    <li ><a href=""><i class="fa fa-book"></i> <span>UI Elements</span></a>
+                    </li>
+
+
+                </ul>
+
+            </div>
+        </div>
         <div class="wrapper" id="app" v-clock>
             <div class="row">
                 <div class="col-sm-12">
-                    <section class="panel">
+                    <section class="index_panel">
                         <div class="panel-body">
                             <div  class="media-gal">
                                 <div v-for="(video,index) in videos" class="images item " >
@@ -60,7 +76,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12 text-right clearfix">
+                                <div class="col-md-12 text-center clearfix">
                                     <ul class="pagination">
                                         <li><a href="javascript:void(0)" @click="lastPage">«</a></li>
                                         <li><a href="javascript:void(0)" @click="nextPage" >»</a></li>

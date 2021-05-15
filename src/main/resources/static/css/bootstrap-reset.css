@@ -1,19 +1,39 @@
 
-.nav-stacked > li + li {
-    margin-top: 1px;
-}
+.index_panel{
+    border: none;
+    margin-top: 70px;
+    margin-left: 224px;
+    width: 1285px;
+    background: rgb(246, 246, 246) ;
 
-.nav > li > a:hover, .nav > li > a:focus {
-    background-color: #353F4F;
-    text-decoration: none;
 }
-
 .panel {
     border: none;
+    margin-top: 80px;
+}
+.header_subscribe_btn{
+    position: absolute;
+    right: -36px;
+    min-width: 104px;
+    height: 36px;
+    margin-top: 35px;
+    color: white;
+    border: white 2px solid;
+}
+.header_subscribe_unbtn{
+    background: #aaa9a9;
+    position: absolute;
+    right: -36px;
+    width: 103px;
+    min-width: 104px;
+    border: white 2px solid;
+    height: 36px;
+    margin-top: 35px;
+    color: white;
 }
 .panel .subscribe_btn{
     position: absolute;
-    right: 1px;
+    right: 20px;
     min-width: 104px;
     height: 36px;
     margin-top: -0.5cm;
@@ -23,11 +43,9 @@
 .panel .subscribe_unbtn{
     background: #aaa9a9;
     position: absolute;
-    right: 1px;
+    right: 20px;
     width: 103px;
     min-width: 104px;
-    /* max-width: 103px; */
-    /* text-align: center; */
     border: white 2px solid;
     height: 36px;
     margin-top: -0.5cm;

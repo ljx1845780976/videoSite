@@ -8,7 +8,7 @@
     <link rel="bookmark" th:href="@{/favicon.ico}"/>
 </head>
 <body>
-<div class="header-section" id="header"  v-clock th:fragment="top">
+<div class="header-section" id="header" v-clock th:fragment="top">
     <style>
         /*v-clock 解决闪烁{{后端参数}}的问题，在id=app的div内声明v-clock即可*/
         [v-clock]{
@@ -150,6 +150,7 @@
                     // console.log(res.data)
                     if (res.data!==null){
                         this.notificationsNum = res.data;
+
                     }else {
                         this.notificationsNum=0
                     }
@@ -159,12 +160,12 @@
                 clearAll(){
                     axios.get('/notification/clearNotifications/'+currentUsername).then(
                         this.notifications= [],
+                        this.hasRead()
                     )
                 },
                 hasRead(){
                     axios.get('/notification/clearNotificationsNum/'+currentUsername).then(
                         this.notificationsNum=0,
-                        console.log(this.notificationsNum)
                     )
                 }
 
@@ -173,7 +174,7 @@
     </script>
 </div>
 
-<div id="user_header" v-clock  class="col-sm-10 "style="margin-right: 128px;float: right" >
+<div id="user_header" v-clock  class="col-sm-10 "style="margin-right: 128px;float: right;" >
     <div class="panel">
         <div class="mybackground">
             <br><br><br><br><br><br>
@@ -192,8 +193,8 @@
                         <span v-if="username!==currentUsername">
                         <input readonly class="mysignature" style="pointer-events: none" type="text" maxlength="49"  placeholder="这个人很懒，什么都没留下" v-model="signature"/>
                          <span class="subscribe">
-                             <a :name="'sub'+username" @click="subscribe($event)"    class="btn btn-danger subscribe_btn"  >订阅2.5万</a>
-                             <a :name="'un_sub'+username" @click="un_subscribe($event)" class="btn btn-danger subscribe_unbtn" >已订阅 2.5万</a>
+                             <a :name="'sub'+username" @click="subscribe($event)"    class="btn btn-danger header_subscribe_btn"  >订阅2.5万</a>
+                             <a :name="'un_sub'+username" @click="un_subscribe($event)" class="btn btn-danger header_subscribe_unbtn" >已订阅 2.5万</a>
                          </span>
                         </span>
                     </div>
@@ -242,19 +243,19 @@
                     if (res.data.signature)
                     {this.signature=res.data.signature;}
                     if (currentUsername===''){
-                        $(".subscribe_btn").css('display', 'inline');
-                        $(".subscribe_unbtn").css('display', 'none');
+                        $(".header_subscribe_btn").css('display', 'inline');
+                        $(".header_subscribe_unbtn").css('display', 'none');
                     }else{
                     axios.get('/subscription/status/'+this.username+"/"+currentUsername).then(res=> {
                         var original_status=res.data
                         if(original_status>0){
                             //未订阅
-                            $(".subscribe_btn").css('display', 'inline');
-                            $(".subscribe_unbtn").css('display', 'none');
+                            $(".header_subscribe_btn").css('display', 'inline');
+                            $(".header_subscribe_unbtn").css('display', 'none');
                         }else {
                             //已订阅
-                            $(".subscribe_btn").css('display', 'none');
-                            $(".subscribe_unbtn").css('display', 'inline');
+                            $(".header_subscribe_btn").css('display', 'none');
+                            $(".header_subscribe_unbtn").css('display', 'inline');
                         }
                     })
                     }

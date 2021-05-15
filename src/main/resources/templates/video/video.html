@@ -85,13 +85,13 @@
                                 <span class="usrname" >{{video.username}}</span>
                             </a>
                             <a @click="subscribe"    class="btn btn-danger subscribe_btn"  >订阅2.5万</a>
-                            <a @click="un_subscribe" class="btn btn-danger subscribe_unbtn" >已订阅 2.5万</a>
+                            <a @click="un_subscribe" class="btn btn-danger subscribe_unbtn" style="display: none">已订阅 2.5万</a>
                         </div>
                         <div class="row">
                             <div >
                                 <!--collapse start-->
                                 <div class="panel-group ">
-                                    <div class="panel">
+                                    <div >
                                         <div  class="panel-collapse collapse in">
                                             <div class="panel-body">
                                                {{video.introduction}}
@@ -333,7 +333,8 @@
         },
         created(){
             moment.locale('zh-cn')
-            window.addEventListener('scroll', this.handleScroll, true);  // 监听（绑定）滚轮滚动事件
+            window.addEventListener('scroll', this.handleScroll,true);  // 监听（绑定）滚轮滚动事件
+            window.add
             axios.get('/video/getVideoInfo/'+videoId).then(res=>{
                 this.video=res.data;
                 this.video_username=res.data.username
@@ -348,10 +349,12 @@
                  if(original_status>0){
                       //未订阅
                       $('.subscribe_unbtn').attr('style', 'display: none;') ;
-                  }else {
+                      $('.subscribe_btn').attr('style', 'display: inline;') ;
+                 }else {
                       //已订阅
                       $('.subscribe_btn').attr('style', 'display: none;') ;
-                  }
+                      $('.subscribe_unbtn').attr('style', 'display: inline;') ;
+                 }
                  }
              })
             });

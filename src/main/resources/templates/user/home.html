@@ -42,13 +42,15 @@
     <div class="row ">
         <div th:replace="common/header::#user_header(activeUrl='home.html')"></div>
 
-        <div id="app" v-clock class="col-sm-10" style="margin-right: 128px;float: right">
+        <div id="app" v-clock class="col-sm-10" style="margin-right: 128px;float: right;">
+           <div style="margin-top: -80px">
             <section class="panel">
                 <div class="panel-body">
-
+                    <div style="margin-top: -30px">
                     <div  class="media-gal2">
                         <div class="col-md-12">
                             <section class="panel">
+                                <div style="margin-top: -60px">
                                 <div class="panel-body">
                                     <div v-if="top_videoInfo===''&& username===currentUsername"  class="i-pin-empty-set list-create">
                                             <a  style="text-decoration: none" href="#myModal" @click="chooseVideo" data-toggle="modal" >
@@ -132,17 +134,17 @@
                                         </div>
                                     </div>
                                 </div>
+                                </div>
                             </section>
                         </div>
 
                         <div class="col-md-10 text-right clearfix">
                         </div>
                     </div>
-
-
-
+                    </div>
                 </div>
             </section>
+           </div>
         </div>
 
     </div>

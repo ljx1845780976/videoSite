@@ -43,10 +43,11 @@
         <div th:replace="common/header::#user_header(activeUrl='focus.html')"></div>
 
         <div id="app" v-clock class="col-sm-10" style="margin-right: 128px;float: right">
+            <div style="margin-top: -80px">
             <section class="panel">
                 <div class="panel-body">
                     <div class="col-md-12 col-sm-6"  >
-                        <div v-for="youtuber in youtubers" class="panel" >
+                        <div v-for="youtuber in youtubers"  >
                             <div class="panel-body">
                                 <div class="media">
                                     <a class="pull-left" :href="'/user/toHome/'+(youtuber.username  )">
@@ -68,8 +69,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <hr>
                         </div>
-                        <div v-if="youtubers.length==0" class="panel" >
+                        <div v-if="youtubers.length==0" >
                             <div class="panel-body">
                                 <div class="media">
                                     <div class="media-body">
@@ -84,9 +86,10 @@
                             </div>
 
                         </div>
+                        </div>
                     </div>
-                </div>
             </section>
+            </div>
         </div>
 
     </div>

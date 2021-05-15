@@ -3576,11 +3576,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: #428bca;
 }
 .nav-stacked > li {
-  float: none;
-}
-.nav-stacked > li + li {
   margin-top: 2px;
   margin-left: 0;
+  font-size: 20px;
 }
 .nav-justified {
   width: 100%;
@@ -4765,8 +4763,6 @@ a.list-group-item-danger.active:focus {
 }
 .panel-body {
   padding: 15px;
-
-
 }
 
 .panel-heading {

@@ -44,7 +44,7 @@ public class VideoController {
     @GetMapping("/getAllVideos/{pageNum}")
     @ResponseBody
     public IPage<Video> getAllVideo(@PathVariable(value = "pageNum",required = false) Integer pageNum){
-        Page<Video> videoPage=new Page<>(pageNum,8);
+        Page<Video> videoPage=new Page<>(pageNum,6);
         IPage<Video> page = videoService.page(videoPage, new QueryWrapper<Video>().ne("status",2).orderByDesc("id"));
         return page;
     }
