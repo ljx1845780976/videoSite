@@ -303,25 +303,33 @@ hr {
     -webkit-border-radius: 0;
     font-size:18px;
 }
-.custom-nav > li :hover {
-
+.custom-nav > li>a :hover,
+.custom-nav > li>a :focus{
+}
+.custom-nav > li>span  {
+    margin-left: 5px;
 }
 
 .custom-nav li .fa {
-    font-size: 30px;
+    font-size: 25px;
     vertical-align: middle;
-    margin-right: 10px;
+    margin-right: 30px;
+    margin-left: 20px;
     width: 16px;
     text-align: center;
+       color: #939393;
+
+
+}
+.fa2 li .fa{
+    color: black;
 }
 
-.custom-nav .sub-menu-list {
-    list-style: none;
-    display: none;
-    margin: 0;
-    padding: 0;
-}
 
+.mysort{
+    margin-left: 93px;
+    font-size: 20px
+}
 
 
 
@@ -464,7 +472,7 @@ h5.left-nav-title {
         HEADER SECTION
 -----------------------------*/
 .header-section {
-  position: fixed;
+    position: fixed;
     background: #fff;
     border-bottom: 1px solid #f5f4f4;
     height: 90px;
@@ -589,7 +597,7 @@ h5.left-nav-title {
 .notification-menu .dropdown-toggle .caret {
     margin-top: 15px;
     margin-right: 25px;
-    }
+}
 .notification-menu .dropdown-menu {
     border: 0;
     margin-top: 15px;
