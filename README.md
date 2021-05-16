@@ -29,8 +29,8 @@
 **5、播放页下方评论区**
 ![image](https://github.com/ljx1845780976/img/blob/main/%E6%92%AD%E6%94%BE%E8%A7%86%E9%A2%91%E9%A1%B5%E4%B8%8B%E8%AF%84%E8%AE%BA%E5%8C%BA.png)
 
-**6、通知栏**
-![image](https://github.com/ljx1845780976/img/blob/main/%E9%80%9A%E7%9F%A5%E6%A0%8F.png)
+**6、通知栏信息**
+![image](https://github.com/ljx1845780976/img/blob/main/%E9%80%9A%E7%9F%A5%E6%A0%8F%E4%BF%A1%E6%81%AF.png)
 
 **7、上传页面**
-![image](https://github.com/ljx1845780976/img/blob/main/%E4%B8%8A%E4%BC%A0%E9%A1%B5.png)
+![image](https://github.com/ljx1845780976/img/blob/main/%E4%B8%8A%E4%BC%A0%E9%A1%B5%E9%9D%A2.png)
