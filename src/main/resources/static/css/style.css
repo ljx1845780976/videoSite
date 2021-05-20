@@ -394,7 +394,7 @@ h5.left-nav-title {
     border-bottom: 1px solid #f5f4f4;
     height: 90px;
     box-shadow: black 1px 1px 20px -7px ;
-    width: 1536px;
+    width: 100%;
     z-index: 100;
 }
 .header-section::after {

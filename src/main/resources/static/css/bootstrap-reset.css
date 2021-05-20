@@ -3,7 +3,6 @@
     border: none;
     margin-top: 70px;
     margin-left: 224px;
-    width: 1285px;
     background: rgb(246, 246, 246) ;
 
 }
@@ -262,7 +261,7 @@
 }
 .js-switch{
     position: absolute;
-    right: 3cm;
+    left: 27cm;
     top: 6.5cm;
 }
 .myform-group{
