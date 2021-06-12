@@ -50,13 +50,12 @@
 <!--body wrapper start-->
 <div class="wrapper" >
     <div class="row">
-        <input hidden="hidden" type="text" id="content" th:value="${videoId}">
+        <input hidden="hidden" type="text" id="content" th:value="${url}">
 
         <div class="col-md-8">
             <section class="panel">
                 <div class="panel-body">
                     <div class="row">
-
                         <br>
                         <div id="dplayer" ></div>
                         <br>
@@ -164,7 +163,6 @@
                              </a>
 
                      </div>
-
                     </div>
                 </div>
             </section>
@@ -183,7 +181,7 @@
                             <div  class="images item " >
                                 <!--注意此处Vue传入参数的方式-->
                                 <a :href="'/video/toVideo/'+(video.id)" data-toggle="modal" >
-                                    <img class="vimg" :src="'/video/getImg/'+(video.id)" alt="" />
+                                    <img class="vimg" :src="video.img" alt="" />
                                     <p> &nbsp;{{video.time}}</p>
                                 </a>
                                 <div class="p1">
@@ -240,7 +238,7 @@
 <script th:src="@{/js/DPlayer.min.js}"></script>
 
 <script>
-    var videoId = document.getElementById("content").value;
+    var url = document.getElementById("content").value;
     const dp = new DPlayer({
         container: document.getElementById('dplayer'),
         autoplay: false,
@@ -254,10 +252,10 @@
         volume: 0.1,
         mutex: true, //阻止多个播放器同时播放
         video: {
-            url: 'http://localhost:8080/video/getVideo/'+videoId,
+            url: url,
             pic: '',
             thumbnails: '',
-            type: 'customDash',
+            type: 'auto',
             customType: {
                 customHls: function (video, player) {
                     const hls = new Hls();
@@ -332,12 +330,14 @@
             time: 0,
         },
         created(){
+
             moment.locale('zh-cn')
             window.addEventListener('scroll', this.handleScroll,true);  // 监听（绑定）滚轮滚动事件
             window.add
             axios.get('/video/getVideoInfo/'+videoId).then(res=>{
                 this.video=res.data;
                 this.video_username=res.data.username
+
                 const _this=this;
              axios.get('/subscription/status/'+_this.video_username+"/"+currentUsername).then(res=> {
                  if (currentUsername===''){

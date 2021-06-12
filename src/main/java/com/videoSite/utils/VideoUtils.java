@@ -1,6 +1,5 @@
 package com.videoSite.utils;
 
-import com.videoSite.common.constant.MyVideoPath;
 import com.videoSite.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,7 +14,8 @@ import java.util.regex.Pattern;
 public class VideoUtils {
 
 
-     /*   1、获取视频时间方法
+
+    /*   1、获取视频时间方法
 
      * */
      public static String getVideoTime(String videoUrl) {
@@ -86,6 +86,14 @@ public class VideoUtils {
 
     }
 
-
+    public static void deleteTempFile(String path) {
+        //指定磁盘里需要删除的文件
+        File file = new File(path);
+        //遍历文件
+        File[] listFiles = file.listFiles();
+        for (File f:listFiles) {
+                f.delete();
+        }
+    }
 
 }

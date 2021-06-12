@@ -21,7 +21,13 @@ mybatis:
   configuration:
     #关闭驼峰命名，但是mybatis-plus无效 还是要改字段或属性名
     map-underscore-to-camel-case: false
-#自定义用户上传视频的存储路径
+#阿里oss配置
+my-oss:
+  ENDPOINT: http://oss-cn-shanghai.aliyuncs.com
+  ACCESS_KEY_Id: LTAI5tCQtKp3JPcaQvYuxZyb
+  ACCESS_KEY_SECRET: QphzJPQ68URTFl17NgXCR4LNmr4yEr
+  BUCKET_NAME: langv
+#自定义用户临时存放视频及图片的文件夹
 my-video-path:
   MYPATH: "D:\\videoSite\\"
 server:

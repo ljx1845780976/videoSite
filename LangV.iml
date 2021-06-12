@@ -116,6 +116,19 @@
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-jdbc:2.4.2" level="project" />
     <orderEntry type="library" name="Maven: com.zaxxer:HikariCP:3.4.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:5.3.3" level="project" />
+    <orderEntry type="library" name="Maven: com.aliyun.oss:aliyun-sdk-oss:3.10.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.13" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.14" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.15" level="project" />
+    <orderEntry type="library" name="Maven: org.jdom:jdom2:2.0.6" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jettison:jettison:1.1" level="project" />
+    <orderEntry type="library" name="Maven: stax:stax-api:1.0.1" level="project" />
+    <orderEntry type="library" name="Maven: com.aliyun:aliyun-java-sdk-core:3.4.0" level="project" />
+    <orderEntry type="library" name="Maven: com.aliyun:aliyun-java-sdk-ram:3.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.aliyun:aliyun-java-sdk-sts:3.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.aliyun:aliyun-java-sdk-ecs:4.2.0" level="project" />
+    <orderEntry type="library" name="Maven: com.aliyun:aliyun-java-sdk-kms:2.7.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.6" level="project" />
     <orderEntry type="library" name="Maven: com.baomidou:mybatis-plus-boot-starter:3.2.0" level="project" />
     <orderEntry type="library" name="Maven: com.baomidou:mybatis-plus:3.2.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-freemarker:2.4.2" level="project" />
@@ -137,5 +150,21 @@
     <orderEntry type="library" name="Maven: com.sun.xml.bind:jaxb-impl:2.3.0" level="project" />
     <orderEntry type="library" name="Maven: com.sun.xml.bind:jaxb-core:2.3.0" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacv:1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:ffmpeg:4.1-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacv-platform:1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:ffmpeg-platform:4.1-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:ffmpeg:android-arm:4.1-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:ffmpeg:android-arm64:4.1-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:ffmpeg:android-x86:4.1-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:ffmpeg:android-x86_64:4.1-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:ffmpeg:linux-x86:4.1-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:ffmpeg:linux-x86_64:4.1-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:ffmpeg:linux-armhf:4.1-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:ffmpeg:linux-ppc64le:4.1-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:ffmpeg:macosx-x86_64:4.1-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:ffmpeg:windows-x86:4.1-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:ffmpeg:windows-x86_64:4.1-1.4.4" level="project" />
   </component>
 </module>

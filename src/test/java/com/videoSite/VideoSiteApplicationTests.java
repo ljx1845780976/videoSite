@@ -17,15 +17,14 @@ import java.util.*;
 class VideoSiteApplicationTests {
 	@Autowired
 	VideoService videoService;
+	@Autowired
+	MyVideoPath myVideoPath;
 	@Test
 	void contextLoads() {
 		System.out.println(VideoUtils.getVideoTime("C:\\Users\\非洲吴彦祖\\Desktop\\final.mp4"));
 		}
     @Test
 	void  test(){
-		List<Video> list = videoService.list();
-		System.out.println(list);
-
 	}
 
 }

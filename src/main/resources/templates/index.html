@@ -70,7 +70,7 @@
                                     <!--注意此处Vue传入参数的方式-->
                                     <a :href="'video/toVideo/'+(video.id)" data-toggle="modal" >
                                         <span class="spanImg">
-                                        <img class="vimg" :src="'video/getImg/'+(video.id)" alt="" />
+                                        <img class="vimg" :src="video.img" alt="" />
                                         <p> &nbsp;{{video.time}}</p>
                                         <div class="myplayicon" ></div>
                                         </span>
@@ -158,6 +158,7 @@
                         } else {
                             res.data.records[i].postTime=(moment(post_time).startOf('minute').fromNow())
                         }
+
                     }
                     this.videos=res.data.records;
                 })
