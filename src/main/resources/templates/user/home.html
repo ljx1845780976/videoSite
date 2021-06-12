@@ -64,7 +64,7 @@
                                         <div  class="images item ">
                                             <!--注意此处Vue传入参数的方式-->
                                             <a  :href="'/video/toVideo/'+(top_videoInfo.id)"  data-toggle="modal" >
-                                                <img class="vimg" :src="'/video/getImg/'+(top_videoInfo.id)" alt="" />
+                                                <img class="vimg" :src="top_videoInfo.img" alt="" />
                                             </a>
                                             <a :href="'/video/toVideo/'+(top_videoInfo.id)" class="aitem">{{top_videoInfo.title}}</a>
                                             <div class="p2">
@@ -91,7 +91,7 @@
                                                     <a id="a_choose" href="#"  data-toggle="modal" >
                                                         <div @click="chosen($event,video.id)" v-for="(video,index) in videos" class="images item ">
                                                             <!--注意此处Vue传入参数的方式-->
-                                                            <img class="vimg" :src="'/video/getImg/'+(video.id)" alt="" />
+                                                            <img class="vimg" :src="video.img" alt="" />
                                                             <span class="p1">{{video.title}}
                                                         </span>
                                                             <span class="p2"> <i style="font-size: 14px;" class="fa fa-youtube-play"></i>&nbsp212万次 &nbsp&nbsp&nbsp&nbsp

@@ -49,7 +49,7 @@
                         <div v-for="(video,index) in videos" class="images item " >
                             <!--注意此处Vue传入参数的方式-->
                             <a :href="'/video/toVideo/'+(video.id)" data-toggle="modal" >
-                                <img class="vimg" :src="'/video/getImg/'+(video.id)" alt="" />
+                                <img class="vimg" :src="video.img" alt="" />
                                 <p> &nbsp;{{video.time}}</p>
                                 <div class="myplayicon" ></div>
                             </a>
