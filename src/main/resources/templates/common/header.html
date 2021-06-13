@@ -188,7 +188,7 @@
                         <input hidden="hidden" type="text" id="username" th:value="${username}">
                         <h3 style="color: white;font-weight: bold" class="">{{username}}</h3>
                         <span v-if="username===currentUsername">
-                        <input class="mysignature" type="text" maxlength="49" @change="setSignature" placeholder="编写个性签名" v-model="signature"/>
+                        <input class="mysignature" type="text" maxlength="49" @blur="setSignature" placeholder="编写个性签名" v-model="signature"/>
                         </span>
                         <span v-if="username!==currentUsername">
                         <input readonly class="mysignature" style="pointer-events: none" type="text" maxlength="49"  placeholder="这个人很懒，什么都没留下" v-model="signature"/>
@@ -264,7 +264,11 @@
             },
             methods:{
                 setSignature(){
+                    if (this.signature===''){
+                        axios.get('/user/deleteSignature/'+currentUsername)
+                    }else {
                     axios.get('/user/setSignature/'+currentUsername+"/"+this.signature)
+                    }
                 },
                 subscribe(event) {
                     if (currentUsername!=="") {
