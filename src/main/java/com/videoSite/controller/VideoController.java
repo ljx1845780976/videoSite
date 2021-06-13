@@ -72,6 +72,7 @@ public class VideoController {
         // 关闭OSSClient。
         ossClient.getOssClient().shutdown();
          modelMap.addAttribute("url",url.toString());
+         modelMap.addAttribute("videoId",videoId);
         return "video/video";
     }
 

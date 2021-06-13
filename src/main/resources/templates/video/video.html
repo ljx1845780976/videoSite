@@ -50,7 +50,8 @@
 <!--body wrapper start-->
 <div class="wrapper" >
     <div class="row">
-        <input hidden="hidden" type="text" id="content" th:value="${url}">
+        <input hidden="hidden" type="text" id="url" th:value="${url}">
+        <input hidden="hidden" type="text" id="videoId" th:value="${videoId}">
 
         <div class="col-md-8">
             <section class="panel">
@@ -238,7 +239,8 @@
 <script th:src="@{/js/DPlayer.min.js}"></script>
 
 <script>
-    var url = document.getElementById("content").value;
+    var url = document.getElementById("url").value;
+    var videoId = document.getElementById("videoId").value;
     const dp = new DPlayer({
         container: document.getElementById('dplayer'),
         autoplay: false,
