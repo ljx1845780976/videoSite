@@ -31,16 +31,9 @@ public class UserController {
    @ResponseBody
    public void setSignature(@PathVariable("username") String username,
                            @PathVariable("signature") String signature){
-       User user=new User();
-       user.setSignature(signature);
-       userService.update(user,new QueryWrapper<User>().eq("username",username));
- }
-   @GetMapping("/deleteSignature/{username}")
-   @ResponseBody
-   public void deleteSignature(@PathVariable("username") String username){
-       User user=new User();
-       user.setSignature("");
-       userService.update(user,new QueryWrapper<User>().eq("username",username));
+      User user=new User();
+      user.setSignature(signature);
+      userService.update(user,new QueryWrapper<User>().eq("username",username));
  }
 
    @GetMapping("/toHome/{username}")
@@ -66,5 +59,10 @@ public class UserController {
        modelMap.addAttribute("username",username);
        return "user/videos";
    }
-    
+   @GetMapping("/toCollection/{username}")
+   public String toCollection(@PathVariable ("username") String username, ModelMap modelMap){
+       modelMap.addAttribute("username",username);
+       return "user/collection";
+   }
+
 }

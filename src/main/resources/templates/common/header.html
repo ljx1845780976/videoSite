@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en"  xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
@@ -16,9 +17,9 @@
         }
     </style>
     <!--toggle button start-->
-<!--    <a class="toggle-btn"><i class="fa fa-bars"></i></a>-->
-  <a href="/" v-bind:title="msg3" class="toggle-btn2">  <img  th:src="@{/images/mylogo.png}" style="width:200px" >
-  </a>
+    <!--    <a class="toggle-btn"><i class="fa fa-bars"></i></a>-->
+    <a href="/" v-bind:title="msg3" class="toggle-btn2">  <img  th:src="@{/images/mylogo.png}" style="width:200px" >
+    </a>
     <form class="searchform" >
         <input type="text"  class="form-control" name="keyword" placeholder="Search here..."/>
         <a class="toggle-btn"><i class="fa fa-search"></i></a>
@@ -29,7 +30,7 @@
 
             <li sec:authorize="isAuthenticated()" >
                 <a href="#" class="btn btn-default dropdown-toggle info-number" data-toggle="dropdown">
-                        <i style="font-size: 30px;" class="fa fa-bell-o" ></i>
+                    <i style="font-size: 30px;" class="fa fa-bell-o" ></i>
                     <span v-if="notificationsNum!==0" class="badge">{{notificationsNum}}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-head pull-right">
@@ -68,28 +69,28 @@
                 <a href="#" class="btn btn-default dropdown-toggle " data-toggle="dropdown">
                     <i style="font-size: 30px;" class="fa fa-bars"></i>
                 </a>
-                    <ul  class="dropdown-menu my-dropdown-menu-usermenu pull-right">
-                        <li>
-                            <a href="/post.html">
+                <ul  class="dropdown-menu my-dropdown-menu-usermenu pull-right">
+                    <li>
+                        <a href="/post.html">
                             <i style="font-size: 22px;" class="fa fa-arrow-circle-o-up"></i> 发布作品
-                            </a>
-                        </li>
-                        <li>
-                            <a :href="'/user/toFocus/'+currentUsername">
-                               <i style="font-size: 20px;" class="fa fa-heart"></i> 我的关注
-                            </a>
-                        </li>
-                        <li>
-                            <a :href="'/user/toFans/'+currentUsername">
-                                <i style="font-size: 20px;" class="fa fa-group"></i> 我的粉丝
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                              <i style="font-size: 24px;" class="fa fa-star"></i> 我的收藏
-                            </a>
-                        </li>
-                    </ul>
+                        </a>
+                    </li>
+                    <li>
+                        <a :href="'/user/toFocus/'+currentUsername">
+                            <i style="font-size: 20px;" class="fa fa-heart"></i> 我的关注
+                        </a>
+                    </li>
+                    <li>
+                        <a :href="'/user/toFans/'+currentUsername">
+                            <i style="font-size: 20px;" class="fa fa-group"></i> 我的粉丝
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i style="font-size: 24px;" class="fa fa-star"></i> 我的收藏
+                        </a>
+                    </li>
+                </ul>
 
             </li>
 
@@ -98,16 +99,16 @@
                     <img  th:src="@{/images/photos/user.png}" alt="" />
                     <!--获取当前用户名-->
                     <span id="currentUsername" sec:authorize="isAuthenticated()" sec:authentication="name" ></span>
-<!--                    <span class="caret"></span>-->
+                    <!--                    <span class="caret"></span>-->
                 </a>
-                 <ul sec:authorize="isAuthenticated()" class="dropdown-menu dropdown-menu-usermenu pull-right">
-                      <li><a :href="'/user/toHome/'+currentUsername"><i style="font-size: 20px;" class="fa fa-user"></i>  个人</a></li>
-                      <li><a href="#"><i style="font-size: 20px;" class="fa fa-cog"></i>   设置</a></li>
-                      <li><a th:href="@{/logout}"><i style="font-size: 20px;" class="fa fa-sign-out"></i> 注销</a></li>
-                 </ul>
-                 <ul sec:authorize="!isAuthenticated()" class="dropdown-menu dropdown-menu-usermenu pull-right">
-                      <li><a th:href="@{/login.html}"><i style="font-size: 20px;" class="fa fa-user"></i> 登录</a></li>
-                 </ul>
+                <ul sec:authorize="isAuthenticated()" class="dropdown-menu dropdown-menu-usermenu pull-right">
+                    <li><a :href="'/user/toHome/'+currentUsername"><i style="font-size: 20px;" class="fa fa-user"></i>  个人</a></li>
+                    <li><a href="#"><i style="font-size: 20px;" class="fa fa-cog"></i>   设置</a></li>
+                    <li><a th:href="@{/logout}"><i style="font-size: 20px;" class="fa fa-sign-out"></i> 注销</a></li>
+                </ul>
+                <ul sec:authorize="!isAuthenticated()" class="dropdown-menu dropdown-menu-usermenu pull-right">
+                    <li><a th:href="@{/login.html}"><i style="font-size: 20px;" class="fa fa-user"></i> 登录</a></li>
+                </ul>
 
             </li>
 
@@ -135,7 +136,7 @@
                 axios.get('/notification/getNotifications/' + currentUsername).then(res => {
                     // console.log(res.data)
                     if (res.data!==null){
-                    this.notifications = res.data;
+                        this.notifications = res.data;
                         res.data.forEach((subscribe)=>{
                             let timeDif= moment(subscribe.notify_time).startOf('minute').fromNow()
                             if (timeDif.indexOf("月")!==-1||timeDif.indexOf("年")!==-1){
@@ -217,7 +218,7 @@
                 <a :href="'/user/toFans/'+username">
                     <li th:class="${activeUrl=='fans.html'?'liActive':'liNotActive'}" > <i class="fa fa-users"></i>&nbsp粉丝&nbsp<span> 311</span></li>
                 </a>
-                <a href="#">
+                <a :href="'/user/toCollection/'+username">
                     <li th:class="${activeUrl=='collection.html'?'liActive':'liNotActive'}" ><i class="fa fa-star"></i>&nbsp收藏&nbsp<span> 127</span></li>
                 </a>
             </ul>
@@ -246,18 +247,18 @@
                         $(".header_subscribe_btn").css('display', 'inline');
                         $(".header_subscribe_unbtn").css('display', 'none');
                     }else{
-                    axios.get('/subscription/status/'+this.username+"/"+currentUsername).then(res=> {
-                        var original_status=res.data
-                        if(original_status>0){
-                            //未订阅
-                            $(".header_subscribe_btn").css('display', 'inline');
-                            $(".header_subscribe_unbtn").css('display', 'none');
-                        }else {
-                            //已订阅
-                            $(".header_subscribe_btn").css('display', 'none');
-                            $(".header_subscribe_unbtn").css('display', 'inline');
-                        }
-                    })
+                        axios.get('/subscription/status/'+this.username+"/"+currentUsername).then(res=> {
+                            var original_status=res.data
+                            if(original_status>0){
+                                //未订阅
+                                $(".header_subscribe_btn").css('display', 'inline');
+                                $(".header_subscribe_unbtn").css('display', 'none');
+                            }else {
+                                //已订阅
+                                $(".header_subscribe_btn").css('display', 'none');
+                                $(".header_subscribe_unbtn").css('display', 'inline');
+                            }
+                        })
                     }
                 });
 
@@ -267,7 +268,7 @@
                     if (this.signature===''){
                         axios.get('/user/deleteSignature/'+currentUsername)
                     }else {
-                    axios.get('/user/setSignature/'+currentUsername+"/"+this.signature)
+                        axios.get('/user/setSignature/'+currentUsername+"/"+this.signature)
                     }
                 },
                 subscribe(event) {

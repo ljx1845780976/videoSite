@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+    <link rel="bookmark" th:href="@{/favicon.ico}"/>
+    <title>LangV</title>
+
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/css/style-responsive.css}" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script th:src="@{/js/html5shiv.js}"></script>
+    <script th:src="@{/js/respond.min.js}"></script>
+    <![endif]-->
+    <style> /*v-clock 解决闪烁{{后端参数}}的问题，在id=app的div内声明v-clock即可*/
+    [v-clock]{
+        display: none;
+    }
+    </style>
+</head>
+
+<body class="mybody">
+
+<!-- left side start-->
+<!-- left side end-->
+
+<!-- main content start-->
+
+<!-- header section start-->
+<div th:replace="common/header::top"></div>
+<!-- header section end-->
+
+<!-- page heading start-->
+<!-- page heading end-->
+
+<!--body wrapper start-->
+<div class="wrapper " >
+    <div class="row ">
+        <div th:replace="common/header::#user_header(activeUrl='collection.html')"></div>
+        <div id="app" v-clock class="col-sm-10" style="left: 8.3%">
+            <div style="margin-top: -80px">
+                <section class="panel">
+                    <div class="panel-body">
+                        <div  class="media-gal2">
+                            <div v-for="(video,index) in videos" class="images item " >
+                                <!--注意此处Vue传入参数的方式-->
+                                <a :href="'/video/toVideo/'+(video.id)" data-toggle="modal" >
+                                    <img class="vimg" :src="video.img" alt="" />
+                                    <p> &nbsp;{{video.time}}</p>
+                                    <div class="myplayicon" ></div>
+                                </a>
+                                <div class="p1" ><a :href="'/video/toVideo/'+(video.id)" class="aitem">{{video.title}}</a>
+                                </div>
+                                <div class="p2"> <i style="font-size: 16px" class="fa fa-youtube-play"></i>&nbsp212万次 &nbsp&nbsp&nbsp&nbsp
+                                    <i style="font-size: 16px" class="fa fa-clock-o"></i>&nbsp {{video.postTime}}
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-center clearfix">
+                                <ul  class="pagination">
+                                    <li><a href="javascript:void(0);" @click="prePage" >«</a></li>
+                                    <li><a href="javascript:void(0);" @click="firstPage" >1</a></li>
+                                    <li ><a >···</a></li>
+                                    <li class="active"><a >{{currentPage}}</a></li>
+                                    <li ><a>···</a></li>
+                                    <li><a href="javascript:void(0); " @click="lastPage" >{{totalPages}}</a></li>
+                                    <li><a href="javascript:void(0); " @click="nextPage" >»</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<!--body wrapper end-->
+<!--footer section start-->
+<!--footer section end-->
+<div th:replace="common/header::footer"></div>
+
+
+<!-- m  ain content end-->
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<script th:src="@{/js/jquery-1.10.2.min.js}"></script>
+<script th:src="@{/js/jquery-ui-1.9.2.custom.min.js}"></script>
+<script th:src="@{/js/jquery-migrate-1.2.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/modernizr.min.js}"></script>
+<!--右边滑条样式-->
+<!--<script src="js/jquery.nicescroll.js"></script>-->
+
+<script th:src="@{/js/jquery.isotope.js}"></script>
+
+<!--common scripts for all pages-->
+<script th:src="@{/js/scripts.js}"></script>
+<script th:src="@{/js/vue.min.js}"></script>
+<script th:src="@{/js/axios.min.js}"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            videos: [],
+            currentPage: 1,
+            totalPages : "",
+        },
+        created(){
+            moment.locale('zh-cn')
+            this.getVideo(1)
+        },
+        methods:{
+            getVideo(pageNum){
+                moment.locale('zh-cn')
+
+                axios.get('/collection/getCollection/'+ pageNum + "/" + username).then(res => {
+                        console.log(res.data.pages)
+                        this.totalPages = res.data.pages === 0 ? 1 : res.data.pages;
+                        for (let i = 0; i < res.data.records.length; i++) {
+                            let post_time = res.data.records[i].postTime
+                            let timeDif = moment(post_time).startOf('minute').fromNow()
+                            if (timeDif.indexOf("天") !== -1 || timeDif.indexOf("月") !== -1 || timeDif.indexOf("年") !== -1) {
+                                res.data.records[i].postTime = (moment(post_time).format("YYYY-MM-DD"))
+                            } else {
+                                res.data.records[i].postTime = (moment(post_time).startOf('minute').fromNow())
+                            }
+                        }
+                        this.videos = res.data.records;
+                    })
+            },
+            nextPage(){
+                if (this.currentPage<this.totalPages){
+                    this.currentPage=this.currentPage+1
+                    this.getVideo(this.currentPage)
+                }
+            },
+            prePage(){
+                if (this.currentPage>1){
+                    this.currentPage=this.currentPage-1
+                    this.getVideo(this.currentPage)
+                }
+            },
+            firstPage(){
+                if(this.currentPage!==1){
+                    this.currentPage=1
+                    this.getVideo(this.currentPage)
+                }
+            },
+            lastPage(){
+                if(this.currentPage!==this.totalPages){
+                    this.currentPage=this.totalPages
+                    this.getVideo(this.currentPage)
+                }
+            },
+
+        }
+    })
+</script>
+
+</body>
+</html>

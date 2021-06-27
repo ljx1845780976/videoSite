@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.videoSite.mapper.CollectionMapper">
+
+    <insert id="addCollectionByUsername">
+        insert  into  m_collection (id,username,video_id) values (null ,#{username},#{videoId})
+    </insert>
+    <delete id="cancelCollectionByUsername">
+        delete from  m_collection where username=#{username} and video_id=#{videoId}
+    </delete>
+    <select id="getCollectionByUsername" resultType="com.videoSite.entity.Video">
+        select v.id,v.title,v.time,v.img,v.username,v.url,v.introduction,v.post_time,v.status from
+        m_video v inner join m_collection c on v.id=c.video_id where c.username=#{username}
+    </select>
+    <select id="isExisted" resultType="integer">
+        select id from m_collection where username=#{username} and video_id=#{videoId}
+    </select>
+
+
+</mapper>
