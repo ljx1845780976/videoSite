@@ -401,7 +401,7 @@
             },
             collection(){
                 if (currentUsername!==""){
-                    $('#collection').css('color', 'none');
+                    $('#collection').css('color', 'blue');
                     clearTimeout(this.timer);
                     this.timer = setTimeout(() => {
                         axios.get('/collection/addCollection/' + videoId).then(res => {
