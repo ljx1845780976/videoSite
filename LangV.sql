@@ -15,7 +15,7 @@ CREATE TABLE `m_user` (
   `signature` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 
 DROP TABLE IF EXISTS `m_collection`;
@@ -24,7 +24,7 @@ CREATE TABLE `m_collection` (
   `username` varchar(20) NOT NULL,
   `video_id` bigint NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 
 
@@ -44,7 +44,7 @@ CREATE TABLE `m_comment` (
   KEY `commentator` (`commentator`),
   CONSTRAINT `m_comment_ibfk_1` FOREIGN KEY (`video_username`) REFERENCES `m_user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `m_comment_ibfk_2` FOREIGN KEY (`commentator`) REFERENCES `m_user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 /*Table structure for table `m_subscribe` */
 
@@ -79,5 +79,5 @@ CREATE TABLE `m_video` (
   PRIMARY KEY (`id`),
   KEY `username` (`username`),
   CONSTRAINT `m_video_ibfk_1` FOREIGN KEY (`username`) REFERENCES `m_user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
