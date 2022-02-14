@@ -1,6 +1,6 @@
 
-CREATE DATABASE LangV;
-USE LangV;
+CREATE DATABASE langv;
+USE langv;
 
 /*Table structure for table `m_user` */
 
