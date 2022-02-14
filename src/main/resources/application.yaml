@@ -7,9 +7,9 @@ spring:
     cache: false
   datasource:
   #中国Timezone要设置为CTT ，CTT为东八区
-    url: jdbc:mysql://localhost:3306/movie?serverTimezone=CTT
-    username: root
-    password: qq123456
+    url: jdbc:mysql://localhost:3306/LangV?serverTimezone=CTT
+    username: xxx
+    password: xxx
     driver-class-name: com.mysql.cj.jdbc.Driver
   #设置允许上传的最大大小
   servlet:
