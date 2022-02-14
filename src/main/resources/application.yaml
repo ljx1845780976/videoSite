@@ -7,7 +7,7 @@ spring:
     cache: false
   datasource:
   #中国Timezone要设置为CTT ，CTT为东八区
-    url: jdbc:mysql://localhost:3306/LangV?serverTimezone=CTT
+    url: jdbc:mysql://localhost:3306/langv?serverTimezone=CTT
     username: xxx
     password: xxx
     driver-class-name: com.mysql.cj.jdbc.Driver
