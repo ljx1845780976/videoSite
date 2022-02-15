@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * @author 关注公众号：JxHub
  * @since 2021-03-22
@@ -42,6 +45,13 @@ public class Login_RegisterController {
         User email=userService.getOne(new QueryWrapper<User>().eq("email",signUpDto.getEmail()));
         if(email!=null){
             modelMap.addAttribute("repeated_email",signUpDto.getEmail());
+            return "register";
+        }
+        String regEx1 = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+        Pattern p = Pattern.compile(regEx1);
+        Matcher m = p.matcher(signUpDto.getEmail());
+        if(!m.matches()){
+            modelMap.addAttribute("invalid_email",signUpDto.getEmail());
             return "register";
         }
         user=new User();
