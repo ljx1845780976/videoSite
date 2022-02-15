@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
  **/
 @Controller
 public class Login_RegisterController {
+    
+    private static final String regEx1 = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
 
     @Autowired
     UserService userService;
@@ -42,6 +44,12 @@ public class Login_RegisterController {
         User email=userService.getOne(new QueryWrapper<User>().eq("email",signUpDto.getEmail()));
         if(email!=null){
             modelMap.addAttribute("repeated_email",signUpDto.getEmail());
+            return "register";
+        }
+        Pattern p = Pattern.compile(regEx1);
+        Matcher m = p.matcher(signUpDto.getEmail());
+        if(!m.matches()){
+            modelMap.addAttribute("invalid_email",signUpDto.getEmail());
             return "register";
         }
         user=new User();
