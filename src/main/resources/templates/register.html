@@ -33,6 +33,7 @@
             <!--接口传来的重复username，如果又输入一样的重复的username，则直接disabled提交按钮-->
             <input id="repeated_username" hidden="hidden" th:value="${repeated_username}">
             <input id="repeated_email" hidden="hidden" th:value="${repeated_email}">
+            <input id="invalid_email" hidden="hidden" th:value="${invalid_email}">
 
             <input type="text" name="username" v-model="vusername" @blur="repeated" @input="usernameLimit" maxlength="19" required class="form-control" placeholder="Username" autofocus>
             <input type="password" name="password" v-model="vpassword" @blur="check" maxlength="49" required class="form-control" placeholder="Password">
@@ -112,6 +113,8 @@
 <script>
     var repeated_username=document.getElementById("repeated_username").value;
     var repeated_email=document.getElementById("repeated_email").value;
+    var invalid_email=document.getElementById("invalid_email").value;
+
    var  V=new Vue({
        el: "#app",
         data: {
@@ -134,6 +137,12 @@
                 this.msg4="邮箱已被注册";
             }else {
                 this.msg4="";
+            }
+            if (invalid_email!=""){
+                this.msg3="邮箱输入格式错误"
+            }
+            else {
+                this.msg3="";
             }
         },
         methods:{
