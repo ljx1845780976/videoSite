@@ -33,7 +33,6 @@ public class Login_RegisterController {
     @RequestMapping("/userLogin")
     public String login(){
         return "login";
-
     }
 
     @PostMapping ("/save")
@@ -57,7 +56,7 @@ public class Login_RegisterController {
         }
         user=new User();
         BeanUtils.copyProperties(signUpDto, user);
-        user.setPassword(MD5utils.getMD5(signUpDto.getPassword()));
+        user.setPassword(MD5utils.encode(signUpDto.getPassword()));
         user.setStatus(1);
         userService.save(user);
         modelMap.addAttribute("newUsername", user.getUsername());

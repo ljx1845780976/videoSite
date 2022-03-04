@@ -5,8 +5,12 @@ import com.videoSite.entity.Video;
 import com.videoSite.service.SubscribeService;
 import com.videoSite.service.VideoService;
 import com.videoSite.service.UserService;
+import com.videoSite.utils.MD5PasswordEncoder;
+import com.videoSite.utils.MD5utils;
 import com.videoSite.utils.RedisUtils;
 import com.videoSite.utils.VideoUtils;
+import org.apache.commons.codec.digest.Md5Crypt;
+import org.apache.tomcat.util.security.MD5Encoder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,6 +29,7 @@ class VideoSiteApplicationTests {
 		}
     @Test
 	void  test(){
+		System.out.println(MD5utils.encode("520810"));
 	}
 
 }

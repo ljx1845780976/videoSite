@@ -2,10 +2,12 @@ package com.videoSite.config;
 
 import com.videoSite.utils.MD5PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.sql.DataSource;
@@ -33,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
         //没有权限默认去登录页, loginPage定制登录页,defaultSuccessUrl定制成功后跳转的页面
-        http.formLogin().loginPage("/userLogin").defaultSuccessUrl("/");
+        http.formLogin().loginPage("/userLogin").defaultSuccessUrl("/index");
 
         //开启注销,设置注销成功前往首页;默认跳到登录页
         //取消csrf工具
