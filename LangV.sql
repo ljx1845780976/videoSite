@@ -11,7 +11,7 @@ CREATE TABLE `m_user` (
   `password` varchar(50) NOT NULL,
   `role` varchar(10) DEFAULT 'ROLE_USER',
   `STATUS` int NOT NULL,
-  `email` varchar(20) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
   `signature` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
