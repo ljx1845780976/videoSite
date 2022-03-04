@@ -12,7 +12,7 @@ public class MD5utils {
 
      //给springSecurity使用
     public static String encode(String password) {
-        password = password + SALT;
+//        password = password + SALT;
         MessageDigest md5 = null;
         try {
             md5 = MessageDigest.getInstance("MD5");
