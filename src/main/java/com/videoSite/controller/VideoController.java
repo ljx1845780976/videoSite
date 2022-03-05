@@ -123,7 +123,7 @@ public class VideoController {
                 ossClient.setObjectAcl(oss.getBUCKET_NAME(), ossImgObject, CannedAccessControlList.PublicRead);
                 System.out.println(videoDto.getUsername()+"图片上传成功,用时："+(System.currentTimeMillis()-t2)/1000+"秒");
                 //获取oss公开读路径
-                String imgUrl="https://langv.oss-cn-shanghai.aliyuncs.com/"+videoDto.getUsername()+"/"+imgFileName;
+                String imgUrl="https://"+oss.getBUCKET_IP()+"/"+videoDto.getUsername()+"/"+imgFileName;
                 //第三步：此时可以封装进pojo对象存入数据库了
                     Video video = new Video();
                     video.setUsername(videoDto.getUsername());

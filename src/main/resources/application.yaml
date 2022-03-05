@@ -8,8 +8,8 @@ spring:
   datasource:
   #中国Timezone要设置为CTT ，CTT为东八区
     url: jdbc:mysql://localhost:3306/langv?serverTimezone=CTT
-    username: xxx
-    password: xxx
+    username: root
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
   #设置允许上传的最大大小
   servlet:
@@ -26,7 +26,8 @@ my-oss:
   ENDPOINT: xxx
   ACCESS_KEY_Id: xxx
   ACCESS_KEY_SECRET: xxx
-  BUCKET_NAME: xxx
+  BUCKET_NAME: xx
+  BUCKET_IP: 填入你的外网访问的bucket域名
 #自定义用户临时存放视频及图片的文件夹
 my-video-path:
   MYPATH: "D:\\videoSite\\"
