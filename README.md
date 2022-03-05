@@ -31,10 +31,12 @@
 ![image](https://gitee.com/ljx1845780976/img/raw/main/%E4%B8%8A%E4%BC%A0%E9%A1%B5%E9%9D%A2.png)
 
 <br><br>
-**二、oss相关配置：**
+**二、oss相关配置：**<br>
 **1、application.yaml配置文件配置相关oss信息**
 ![image](https://gitee.com/ljx1845780976/img/raw/main/oss%E9%85%8D%E7%BD%AE1.png)
 
 **2、oss设置前端js跨域请求允许**
+<br>①<br>
 ![image](https://gitee.com/ljx1845780976/img/raw/main/%E8%B7%A8%E5%9F%9F%E8%AE%BE%E7%BD%AE1.png)
+<br>②<br>
 ![image](https://gitee.com/ljx1845780976/img/raw/main/%E8%B7%A8%E5%9F%9F%E8%AE%BE%E7%BD%AE2.png)
