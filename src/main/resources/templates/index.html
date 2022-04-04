@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -24,97 +25,204 @@
 </head>
 
 <body class="mybody">
+<!--<div th:replace="common/header::top"></div>-->
+<div id="app">
 
-        <div th:replace="common/header::top"></div>
-        <div class="left-side sticky-left-side" tabindex="5000" style="overflow: hidden;">
+    <div class="header-section" style="height: 74px"  v-clock th:fragment="top">
+        <style>
+            /*v-clock 解决闪烁{{后端参数}}的问题，在id=app的div内声明v-clock即可*/
+            [v-clock]{
+                display: none;
+            }
+        </style>
+        <!--toggle button start-->
+        <!--    <a class="toggle-btn"><i class="fa fa-bars"></i></a>-->
+        <a href="/" v-bind:title="msg3" class="toggle-btn2">
+            <img th:src="@{/images/mylogo.png}" style="width:140px;height: 120px" >
+        </a>
+        <form class="searchform" >
+            <input type="text"  class="form-control"  id="keyword" placeholder="Search here..."/>
+            <a class="toggle-btn" @click="search"><i class="fa fa-search"></i></a>
+        </form>
+        <div class="menu-right">
+            <ul class="notification-menu">
+                <li sec:authorize="isAuthenticated()" >
+                    <a href="#" class="btn btn-default dropdown-toggle info-number" data-toggle="dropdown">
+                        <i style="font-size: 30px;" class="fa fa-bell-o" ></i>
+                        <span v-if="notificationsNum!==0" class="badge">{{notificationsNum}}</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-head pull-right">
+                        <h5 class="mytitle" >
+                            你最近有{{notificationsNum}}条通知
+                            <a  href="javascript:void(0)" @click="hasRead" >
+                                <i v-bind:title="msg2" style="float: right;font-size: 20px" class="fa fa-check-square-o"></i>
+                            </a>
+                            <a  href="javascript:void(0)" @click="clearAll">
+                                <i v-bind:title="msg" style="float: right;font-size: 20px" class="fa fa-trash-o"></i>
+                            </a>
+                        </h5>
+                        <ul  class="dropdown-list normal-list">
+                            <li v-for="(notification,index) in notifications">
+                                <a :href="notification.url" >
+                                <span class="thumb">
+                                    <img th:src="@{/images/photo/head1.png}" alt="" />
+                                </span>
+                                    <span class="desc">
+                                          <span class="name">
+                                              {{notification.notifier}}
+                                              <span  style="float: right;color: orange" v-if="index<notificationsNum"><i  class="fa fa-circle"></i></span>
+                                          </span>
+                                          <span class="msg">
+                                              <span>{{notification.msg}}</span>
+                                              <span style="float: right" v-text="times[index]"></span>
+                                          </span>
+                                        </span>
+                                </a>
+                            </li>
+                            <li style="background-color: #fafafa"></li>
+                        </ul>
+                    </div>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a href="#" class="btn btn-default dropdown-toggle " data-toggle="dropdown">
+                        <i style="font-size: 30px;" class="fa fa-bars"></i>
+                    </a>
+                    <ul  class="dropdown-menu my-dropdown-menu-usermenu pull-right">
+                        <li>
+                            <a href="/post.html">
+                                <i style="font-size: 22px;" class="fa fa-arrow-circle-o-up"></i>发布作品
+                            </a>
+                        </li>
+                        <li>
+                            <a :href="'/user/toFocus/'+currentUsername">
+                                <i style="font-size: 20px;" class="fa fa-heart"></i> 我的关注
+                            </a>
+                        </li>
+                        <li>
+                            <a :href="'/user/toFans/'+currentUsername">
+                                <i style="font-size: 20px;" class="fa fa-group"></i> 我的粉丝
+                            </a>
+                        </li>
+                        <li>
+                            <a :href="'/user/toCollection/'+currentUsername">
+                                <i style="font-size: 24px;" class="fa fa-star"></i> 我的收藏
+                            </a>
+                        </li>
+                    </ul>
 
-            <div class="left-side-inner">
-                <ul class="nav  custom-nav">
-                    <li ><a href=""><i class="fa fa-home"></i> <span>主页</span></a>
-                    </li>
-                    <li ><a href=""><i class="fa fa-fire"></i> <span>热门播放</span></a>
-                    </li>
-                    <li ><a href=""><i class="fa fa-eye"></i> <span>历史记录</span></a>
-                    </li>
-                </ul>
-                <hr style="margin-top: 1px"/>
-                <div class="mysort"> 分类 </div>
-                <div  style="margin-top: -30px;">
-                <ul class="nav fa2 custom-nav ">
-                    <li ><a href=""><i class="fa fa-music"></i> <span>音乐</span></a>
-                    </li>
-                    <li ><a href=""><i class="fa fa-dribbble"></i> <span>运动</span></a>
-                    </li>
-                    <li ><a href=""><i class="fa fa-gamepad"></i> <span>游戏</span></a>
-                    </li>
-                    <li ><a href=""><i class="fa fa-github-alt"></i> <span>动漫</span></a>
-                    </li>
-                    <li ><a href=""><i class="fa fa-film"></i> <span>电影</span></a>
-                    </li>
-                    <li ><a href=""><i class="fa fa-youtube"></i> <span>新闻</span></a>
-                    </li>
-                    <li ><a href=""><i class="fa fa-video-camera"></i> <span>直播</span></a>
-                    </li>
-                </ul>
-                </div>
+                </li>
 
-            </div>
+                <li>
+                    <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <img  th:src="@{/images/photo/head1.png}" alt="" />
+                        <!--获取当前用户名-->
+                        <span id="currentUsername" sec:authorize="isAuthenticated()" sec:authentication="name" ></span>
+                        <!--                    <span class="caret"></span>-->
+                    </a>
+                    <ul sec:authorize="isAuthenticated()" class="dropdown-menu dropdown-menu-usermenu pull-right">
+                        <li><a :href="'/user/toHome/'+currentUsername"><i style="font-size: 20px;" class="fa fa-user"></i>个人</a></li>
+                        <li><a href="#"><i style="font-size: 20px;" class="fa fa-cog"></i>设置</a></li>
+                        <li><a th:href="@{/logout}"><i style="font-size: 20px;" class="fa fa-sign-out"></i> 注销</a></li>
+                    </ul>
+                    <ul sec:authorize="!isAuthenticated()" class="dropdown-menu dropdown-menu-usermenu pull-right">
+                        <li><a th:href="@{/login.html}"><i style="font-size: 20px;" class="fa fa-user"></i>登录</a></li>
+                    </ul>
+
+                </li>
+
+            </ul>
         </div>
-        <div class="wrapper" id="app" v-clock>
-            <div class="row">
-                <div class="col-sm-12">
-                    <section class="index_panel">
-                        <div class="panel-body">
-                            <div  class="media-gal">
-                                <div v-for="(video,index) in videos" class="images item " >
-                                    <!--注意此处Vue传入参数的方式-->
-                                    <a :href="'video/toVideo/'+(video.id)" data-toggle="modal" >
+
+    </div>
+    <div class="left-side sticky-left-side" tabindex="5000" style="overflow: hidden;">
+
+        <div class="left-side-inner">
+            <ul class="nav  custom-nav">
+                <li ><a href="/"><i class="fa fa-home"></i> <span>主页</span></a>
+                </li>
+                <li ><a href=""><i class="fa fa-fire"></i> <span>热门播放</span></a>
+                </li>
+                <li ><a href=""><i class="fa fa-eye"></i> <span>历史记录</span></a>
+                </li>
+            </ul>
+            <hr style="margin-top: 1px"/>
+            <div class="mysort"> 分类 </div>
+            <div  style="margin-top: -30px;">
+                <ul class="nav fa2 custom-nav ">
+                    <li ><a th:href="@{/video/music}"><i class="fa fa-music"></i> <span>音乐</span></a>
+                    </li>
+                    <li ><a th:href="@{/video/sport}"><i class="fa fa-dribbble"></i> <span>运动</span></a>
+                    </li>
+                    <li ><a th:href="@{/video/game}"><i class="fa fa-gamepad"></i> <span>游戏</span></a>
+                    </li>
+                    <li ><a th:href="@{/video/mad}"><i class="fa fa-github-alt"></i> <span>动漫</span></a>
+                    </li>
+                    <li ><a th:href="@{/video/movie}"><i class="fa fa-film"></i> <span>电影</span></a>
+                    </li>
+                    <li ><a th:href="@{/video/happy}"><i class="fa fa-youtube"></i> <span>搞笑</span></a>
+                    </li>
+                    <li ><a href="https://live.bilibili.com/lol?visit_id=avprknu69jk0"><i class="fa fa-video-camera"></i> <span>直播</span></a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="wrapper"  v-clock>
+        <div class="row">
+            <div class="col-sm-12">
+                <section class="index_panel">
+                    <div class="panel-body">
+                        <div  class="media-gal">
+                            <div v-for="(video,index) in videos" class="images item " >
+                                <!--Vue传入参数的方式-->
+                                <a :href="'video/toVideo/'+(video.id)" data-toggle="modal" >
                                         <span class="spanImg">
                                         <img class="vimg" :src="video.img" alt="" />
                                         <p> &nbsp;{{video.time}}</p>
                                         <div class="myplayicon" ></div>
                                         </span>
 
-                                    </a>
-                                    <div>
-                                      <p1><a :href="'video/toVideo/'+(video.id)" v-bind:title="video.title" class="aitem">{{video.title}}</a></p1>
-                                    </div>
-                                    <div>
-                                      <p3>
+                                </a>
+                                <div>
+                                    <p1><a :href="'video/toVideo/'+(video.id)" v-bind:title="video.title" class="aitem">{{video.title}}</a></p1>
+                                </div>
+                                <div>
+                                    <p3>
                                         <img  height="17px" width="17px" th:src="@{/images/icon_up.png}" alt="" />
                                         <a  :href="'/user/toHome/'+(video.username)"> &nbsp{{video.username}}&nbsp </a>
                                         <i style="font-size: 15px;color: #86b828" class="fa fa-check-circle-o"></i>
-                                      </p3>
-                                    </div>
-                                    <div>
-                                       <p2>
-                                          <i style="font-size: 16px" class="fa fa-youtube-play"></i>&nbsp&nbsp12万次 &nbsp&nbsp&nbsp&nbsp
-                                          <i style="font-size: 15px" class="fa fa-clock-o"></i>&nbsp {{video.postTime}}
-                                      </p2>
-                                    </div>
+                                    </p3>
                                 </div>
-
-                                <div class="col-md-12 text-center clearfix">
-                                    <ul class="pagination">
-                                        <li><a href="javascript:void(0)" @click="lastPage">«</a></li>
-                                        <li><a href="javascript:void(0)" @click="nextPage" >»</a></li>
-                                    </ul>
+                                <div>
+                                    <p2>
+                                        <i style="font-size: 16px" class="fa fa-youtube-play"></i>&nbsp&nbsp12万次 &nbsp&nbsp&nbsp&nbsp
+                                        <i style="font-size: 15px" class="fa fa-clock-o"></i>&nbsp {{video.postTime}}
+                                    </p2>
                                 </div>
                             </div>
 
-
-                            <!-- Modal -->
-                            <!-- modal -->
-
+                            <div class="col-md-12 text-center clearfix">
+                                <ul class="pagination">
+                                    <li><a href="javascript:void(0)" @click="lastPage">«</a></li>
+                                    <li><a href="javascript:void(0)" @click="nextPage" >»</a></li>
+                                </ul>
+                            </div>
                         </div>
-                    </section>
-                </div>
+
+
+                        <!-- Modal -->
+                        <!-- modal -->
+
+                    </div>
+                </section>
             </div>
         </div>
-        <div th:replace="common/header::footer"></div>
+    </div>
+    <div th:replace="common/header::footer"></div>
 
-
-    <!-- m  ain content end-->
+</div>
+<!-- m  ain content end-->
 
 <!-- Placed js at the end of the document so the pages load faster -->
 <script src="js/jquery-1.10.2.min.js"></script>
@@ -126,12 +234,14 @@
 <!--<script src="js/jquery.nicescroll.js"></script>-->
 
 <script src="js/jquery.isotope.js"></script>
-
+<script th:src="@{/js/newImport/moment.min.js}"></script>
 <!--common scripts for all pages-->
 <script src="js/scripts.js"></script>
 <script th:src="@{/js/vue.min.js}"></script>
 <script th:src="@{/js/axios.min.js}"></script>
 <script>
+    const currentUsername = $("#currentUsername").text();
+
     new Vue({
         el: '#app',
         data: {
@@ -139,11 +249,43 @@
             currentPage: 1,
             totalPages: '',
 
+            notifications: [],
+            notificationsNum: 0,
+            times: [],
+            msg: '清空通知栏消息',
+            msg2: '点击已读',
+            msg3: '返回首页',
+            currentUsername : currentUsername,
+            keyword: ''
         },
         created(){
             //设置时间工具moment.js的语言为中文
             moment.locale('zh-cn')
+            axios.get('/notification/getNotifications/' + currentUsername).then(res => {
+                // console.log(res.data)
+                if (res.data!==null){
+                    this.notifications = res.data;
+                    res.data.forEach((subscribe)=>{
+                        let timeDif= moment(subscribe.notify_time).startOf('minute').fromNow()
+                        if (timeDif.indexOf("月")!==-1||timeDif.indexOf("年")!==-1){
+                            this.times.push(moment(subscribe.notify_time).format("YYYY-MM-DD"))
+                        }else {
+                            this.times.push(timeDif)
+                        }
+                    })
+                }
+            })
+            axios.get('/notification/getNotificationsNum/' + currentUsername).then(res => {
+                // console.log(res.data)
+                if (res.data!==null){
+                    this.notificationsNum = res.data;
+
+                }else {
+                    this.notificationsNum=0
+                }
+            })
             this.getVideo(1)
+
         },
         methods:{
             getVideo(pageNum){
@@ -166,17 +308,61 @@
             nextPage(){
                 if (this.currentPage<this.totalPages) {
                     this.currentPage = this.currentPage + 1
-                    this.getVideo(this.currentPage)
+                    if (this.keyword!=''){
+                        this.getKeyVideo(this.keyword)
+                    }else {
+                        this.getVideo(this.currentPage)
+                    }
                 }
             },
             lastPage() {
                 if (this.currentPage > 1) {
                     this.currentPage = this.currentPage - 1
+                    if (this.keyword!=''){
+                        this.getKeyVideo(this.keyword)
+                    }else {
+                        this.getVideo(this.currentPage)
+                    }
+                }
+            },
+
+            clearAll(){
+                axios.get('/notification/clearNotifications/'+currentUsername).then(
+                    this.notifications= [],
+                    this.hasRead()
+                )
+            },
+            hasRead(){
+                axios.get('/notification/clearNotificationsNum/'+currentUsername).then(
+                    this.notificationsNum=0,
+                )
+            },
+            getKeyVideo(keyword){
+                axios.get('/video/getKeyVideos/'+this.currentPage+'/'+this.keyword).then(res=>{
+                    this.totalPages=res.data.pages;
+                    for (let i = 0; i <res.data.records.length ; i++) {
+                        let post_time = res.data.records[i].postTime
+                        let timeDif = moment(post_time).startOf('minute').fromNow()
+                        if (timeDif.indexOf("天") !== -1 || timeDif.indexOf("月") !== -1 || timeDif.indexOf("年") !== -1) {
+                            res.data.records[i].postTime=(moment(post_time).format("YYYY-MM-DD"))
+                        } else {
+                            res.data.records[i].postTime=(moment(post_time).startOf('minute').fromNow())
+                        }
+
+                    }
+                    this.videos=res.data.records;
+                })
+            },
+            search(){
+                this.currentPage=1;
+                this.keyword=$('#keyword').val();
+                if(this.keyword!=''){
+                    this.getKeyVideo(this.keyword)
+                }else {
                     this.getVideo(this.currentPage)
                 }
             }
-
-            }
+        }
     })
 </script>
 

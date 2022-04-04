@@ -64,10 +64,13 @@ public class Login_RegisterController {
         return "login";
     }
 
-
     @GetMapping("/logOut")
-    @ResponseBody
     public String logOut(){
         return "login";
+    }
+
+    @GetMapping("/manager")
+    public String manager(){
+        return "manager";
     }
 }

@@ -3,7 +3,6 @@ package com.videoSite.controller;
 
 import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSS;
-import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.OSSException;
 import com.aliyun.oss.model.*;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -13,27 +12,20 @@ import com.videoSite.common.constant.MyOss;
 import com.videoSite.common.constant.MyVideoPath;
 import com.videoSite.common.constant.OssClient;
 import com.videoSite.common.dto.VideoDto;
-import com.videoSite.entity.User;
 import com.videoSite.entity.Video;
 import com.videoSite.service.VideoService;
 import com.videoSite.utils.FFmpegUtils;
 import com.videoSite.utils.RedisUtils;
-import com.videoSite.utils.VideoUtils;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.amqp.RabbitRetryTemplateCustomizer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -62,6 +54,16 @@ public class VideoController {
         IPage<Video> page = videoService.page(videoPage, new QueryWrapper<Video>().ne("status",2).orderByDesc("id"));
         return page;
     }
+
+    @GetMapping("/getKeyVideos/{pageNum}/{title}")
+    @ResponseBody
+    public IPage<Video> getKeyVideos(@PathVariable(value = "pageNum",required = false) Integer pageNum,
+                                     @PathVariable(value = "title") String title){
+        Page<Video> videoPage=new Page<>(pageNum,6);
+        IPage<Video> page = videoService.page(videoPage, new QueryWrapper<Video>().ne("status",2).like("title",title).orderByDesc("id"));
+        return page;
+    }
+
     @GetMapping("/toVideo/{videoId}")
     public String toVideo(@PathVariable("videoId")Integer videoId, ModelMap modelMap) {
         Video video = videoService.getById(videoId);

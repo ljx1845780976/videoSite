@@ -1,5 +1,6 @@
 package com.videoSite.config;
 
+import com.videoSite.handler.LoginSuccessHandler;
 import com.videoSite.utils.MD5PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -31,11 +32,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index").permitAll()
                 .antMatchers("/comment/postComment","/notification/**",
                         "/subscription/**","/user/setSignature","/video/addVideo",
-                        "/video/setTopVideoStatus","/video/cancelTopVideoStatus").authenticated();
+                        "/video/setTopVideoStatus","/video/cancelTopVideoStatus").authenticated()
+                .antMatchers("/manager").hasRole("ADMIN");
 
 
         //没有权限默认去登录页, loginPage定制登录页,defaultSuccessUrl定制成功后跳转的页面
-        http.formLogin().loginPage("/userLogin").defaultSuccessUrl("/index");
+        http.formLogin().loginPage("/userLogin").defaultSuccessUrl("/index").successHandler(new LoginSuccessHandler());
 
         //开启注销,设置注销成功前往首页;默认跳到登录页
         //取消csrf工具
