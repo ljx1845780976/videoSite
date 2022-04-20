@@ -28,17 +28,15 @@
 <!--<div th:replace="common/header::top"></div>-->
 <div id="app">
 
-    <div class="header-section" style="height: 74px"  v-clock th:fragment="top">
+    <div class="header-section" v-clock th:fragment="top">
         <style>
             /*v-clock 解决闪烁{{后端参数}}的问题，在id=app的div内声明v-clock即可*/
             [v-clock]{
                 display: none;
             }
         </style>
-        <!--toggle button start-->
-        <!--    <a class="toggle-btn"><i class="fa fa-bars"></i></a>-->
-        <a href="/" v-bind:title="msg3" class="toggle-btn2">
-            <img th:src="@{/images/mylogo.png}" style="width:140px;height: 120px" >
+        <a href="/index" v-bind:title="msg3" class="toggle-btn2">
+            <img  th:src="@{/images/mylogo.png}" style="width:200px" >
         </a>
         <form class="searchform" >
             <input type="text"  class="form-control"  id="keyword" placeholder="Search here..."/>
@@ -65,7 +63,7 @@
                             <li v-for="(notification,index) in notifications">
                                 <a :href="notification.url" >
                                 <span class="thumb">
-                                    <img th:src="@{/images/photo/head1.png}" alt="" />
+                                    <img th:src="@{/images/photos/user2.png}" alt="" />
                                 </span>
                                     <span class="desc">
                                           <span class="name">
@@ -114,7 +112,7 @@
 
                 <li>
                     <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        <img  th:src="@{/images/photo/head1.png}" alt="" />
+                        <img  th:src="@{/images/photos/user.png}" alt="" />
                         <!--获取当前用户名-->
                         <span id="currentUsername" sec:authorize="isAuthenticated()" sec:authentication="name" ></span>
                         <!--                    <span class="caret"></span>-->
