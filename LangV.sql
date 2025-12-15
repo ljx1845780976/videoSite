@@ -1,5 +1,5 @@
-CREATE DATABASE LangV;
-USE LangV;
+CREATE DATABASE langv;
+USE langv;
 
 DROP TABLE IF EXISTS m_user ;
 CREATE TABLE `m_user` (
